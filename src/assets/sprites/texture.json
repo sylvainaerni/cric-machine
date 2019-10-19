@@ -1,0 +1,36 @@
+{"frames": [
+
+{
+	"filename": "circle copie 2.svg",
+	"frame": {"x":0,"y":0,"w":96,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":100},
+	"sourceSize": {"w":96,"h":100}
+},
+{
+	"filename": "circle copie.svg",
+	"frame": {"x":96,"y":0,"w":96,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":100},
+	"sourceSize": {"w":96,"h":100}
+},
+{
+	"filename": "circle.svg",
+	"frame": {"x":192,"y":0,"w":96,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":96,"h":100},
+	"sourceSize": {"w":96,"h":100}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "RENDER.png",
+	"format": "RGBA4444",
+	"size": {"w":288,"h":100},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:ca0d69b96188932495f0dad907415305:b3de8e211240fddf3926cea97f83ef54:b6c20d41016f9cf4c01ab02d4f67091b$"
+}
+}

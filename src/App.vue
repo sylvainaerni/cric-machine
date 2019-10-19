@@ -1,17 +1,16 @@
 <template>
-  <div class="flex flex-col" id="app">
-    <div class="mb-12" id="nav">
+  <div class="" id="app">
+    <nav id="nav" class="absolute z-10 right-0 px-5 py-3 bg-gray-200 shadow-md">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </div>
+    </nav>
     <router-view />
   </div>
 </template>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+  margin: 0;
+  padding: 0;
 }
 </style>
