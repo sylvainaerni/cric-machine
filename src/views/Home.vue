@@ -4,53 +4,60 @@
     <button class=" mr-5 p-2 bg-red-400" @click="removeItem(rectangles.length-1)">Remove Last Item</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
-    <div :class=" isHovering ? 'fixed bottom-0 p-2 bg-green-600' : 'hidden' " :xpos=0 :ypos=0 >
-      {{ hoveredItem ? hoveredItem.attrs.name : 'target' }}
+    <div :class=" isHovering ? 'fixed bottom-0 p-2 bg-green-600' : 'hidden' " >
+      {{ hoveredGroup ? hoveredGroup.attrs.name : 'target' }}
     </div>
 
-    <v-stage ref="stage" :config="stageSize" @mousedown="handleStageMouseDown">
+    <v-stage ref="stage" :config="stageSize">
       <v-layer ref="layer">
 
-        <v-sprite
+        <v-group
           v-for="(item, index) in rectangles"
           @mouseover="handleMouseOver"
           @mouseout="handleMouseOut"
           @dragstart="handleDragStart"
           @dragend="handleDragEnd"
-          :key="`${index}`"
-          :name="`rectangle-${index}`"
-          :config="item"
-          ref="sprite" />
-
-        <v-group
-          name="actions"
+          :key="`group-${index}`"
+          :name="`group-${index}`"
           ref="group"
-          :config="{
-            x: this.actionGroupPosX(),
-            y: this.actionGroupPosY()
-          }">
+          draggable="true"
+          blue="200"
+          :x=300*index
+          :y=200
+        >
+          <v-sprite
+            :key="`sprite-${index}`"
+            :config="item"
+            ref="sprite"
+            :draggable=false
+          />
+          <v-group
+            name="actions"
+            ref="action-group"
+            :opacity=0.5
+          >
             <v-rect :config="{
               x: 0,
               y: 0,
               width: 25,
               height: 25,
-              fill: 'green'
-            }" />
+              fill: 'green'}" />
             <v-rect :config="{
               x: 26,
               y: 0,
               width: 25,
               height: 25,
-              fill: 'green'
-            }" />
+              fill: 'green'}" />
             <v-rect :config="{
               x: 52,
               y: 0,
               width: 25,
               height: 25,
-              fill: 'red'
-            }" />
+              fill: 'red'}" />
+          </v-group>
+
         </v-group>
+
       </v-layer>
     </v-stage>
   </div>
@@ -58,6 +65,95 @@
 
 <script>
 
+let firstRectanglesExample = [
+  {
+    name: 'rectangle-0',
+    image: null,
+    width: 300,
+    height: 250,
+    fill: 'transparent',
+    rotation: 0,
+    offset: {
+      x: 0,
+      y: 0
+    },
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 0,
+    animations: {
+      vibrato: [
+        // x, y, width, height (3 frames)
+          0,  0, 300, 250,
+          300, 0, 300, 250,
+          600, 0, 300, 250 ]
+    }
+  },
+  {
+    name: 'rectangle-1',
+    image: null,
+    width: 150,
+    height: 130,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 5,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height (3 frames)
+          0,  250, 150, 130,
+          150, 250, 150, 130
+      ]
+    }
+  },
+  {
+    name: 'rectangle-2',
+    image: null,
+    width: 100,
+    height: 100,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height (3 frames)
+        300, 250, 130, 160,
+        430, 250, 130, 160,
+        560, 250, 130, 160,
+        690, 250, 130, 160,
+        820, 250, 130, 160,
+          0, 410, 130, 160,
+        130, 410, 130, 160,
+        260, 410, 130, 160,
+        390, 410, 130, 160,
+        520, 410, 130, 160,
+        650, 410, 130, 160,
+        780, 410, 130, 160
+      ]
+    }
+  },
+  {
+    name: 'rectangle-4',
+    image: null,
+    width: 100,
+    height: 100,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height (3 frames)
+          0, 570, 70, 100,
+          70, 570, 70, 100,
+        140, 570, 70, 100,
+        210, 570, 70, 100,
+        280, 570, 70, 100,
+        350, 570, 70, 100
+      ]
+    }
+  }
+];
 const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
 const image = new window.Image();
@@ -65,6 +161,8 @@ let   nRectangles = 4; // TO DO: find solution for the id's
 
 const colorRedTransparent03 = 'rgba(255,0,0,0.3)';
 const colorRedTransparent02 = 'rgba(255,0,0,0.2)';
+
+
 
 export default {
   data() {
@@ -75,133 +173,26 @@ export default {
       },
       image: image,
       dragItemId: null,
-      hoveredItem: null,
+      hoveredGroup: null,
       isHovering: false,
       isDragging: false,
-      rectangles: [
-        {
-          name: 'rectangle-0',
-          image: null,
-          x: 200,
-          y: 200,
-          width: 300,
-          height: 250,
-          fill: 'transparent',
-          draggable: true,
-          rotation: 0,
-          offset: {
-            x: 0,
-            y: 0
-          },
-          animation: 'vibrato',
-          frameRate: 10,
-          frameIndex: 0,
-          animations: {
-            vibrato: [
-              // x, y, width, height (3 frames)
-                0,  0, 300, 250,
-               300, 0, 300, 250,
-               600, 0, 300, 250 ]
-          }
-        },
-        {
-          name: 'rectangle-1',
-          image: null,
-          x: 150,
-          y: 150,
-          width: 150,
-          height: 130,
-          fill: 'transparent',
-          draggable: true,
-          animation: 'vibrato',
-          frameRate: 5,
-          frameIndex: 1,
-          animations: {
-            vibrato: [
-              // x, y, width, height (3 frames)
-                0,  250, 150, 130,
-               150, 250, 150, 130
-            ]
-          }
-        },
-        {
-          name: 'rectangle-2',
-          image: null,
-          x: 50,
-          y: 50,
-          width: 100,
-          height: 100,
-          fill: 'transparent',
-          draggable: true,
-          animation: 'vibrato',
-          frameRate: 10,
-          frameIndex: 1,
-          animations: {
-            vibrato: [
-              // x, y, width, height (3 frames)
-              300, 250, 130, 160,
-              430, 250, 130, 160,
-              560, 250, 130, 160,
-              690, 250, 130, 160,
-              820, 250, 130, 160,
-                0, 410, 130, 160,
-              130, 410, 130, 160,
-              260, 410, 130, 160,
-              390, 410, 130, 160,
-              520, 410, 130, 160,
-              650, 410, 130, 160,
-              780, 410, 130, 160
-            ]
-          }
-        },
-        {
-          name: 'rectangle-4',
-          image: null,
-          x: 250,
-          y: 150,
-          width: 100,
-          height: 100,
-          fill: 'transparent',
-          draggable: true,
-          animation: 'vibrato',
-          frameRate: 10,
-          frameIndex: 1,
-          animations: {
-            vibrato: [
-              // x, y, width, height (3 frames)
-                0, 570, 70, 100,
-               70, 570, 70, 100,
-              140, 570, 70, 100,
-              210, 570, 70, 100,
-              280, 570, 70, 100,
-              350, 570, 70, 100
-            ]
-          }
-        }
-      ]
+      rectangles: firstRectanglesExample
     };
   },
   methods: {
-    actionGroupPosX() {
-      let xpos = this.hoveredItem ? this.hoveredItem.attrs.x : 0
-      return xpos;
-    },
-
-    actionGroupPosY() {
-      let ypos = this.hoveredItem ? this.hoveredItem.attrs.y : 0
-      return ypos;
-    },
 
     handleMouseOver(e) {
       this.isHovering = true;
-      this.hoveredItem = e.target;
-      this.hoveredItem.attrs.fill = colorRedTransparent02;
-      // to test: this.hoveredItem.add(actionGroup);
+      this.hoveredGroup = e.target.parent;
+      console.log('e.target',this.hoveredGroup.children[1].attrs);
+      this.hoveredGroup.children[0].attrs.fill = colorRedTransparent02;
+      this.hoveredGroup.children[1].attrs.opacity = 1;
+      console.log('e.target',this.hoveredGroup.children[1].attrs);
     },
 
     handleMouseOut(e) {
-      this.hoveredItem.attrs.fill = 'transparent';
-      this.hoveredItem = null;
+      this.hoveredGroup.attrs.fill = 'transparent';
+      this.hoveredGroup = null;
       this.isHovering = false;
     },
 
@@ -238,8 +229,9 @@ export default {
     },
 
     animateSprites() {
-      for (let i = 0; i < this.$refs.sprite.length; i++) {
-        this.$refs.sprite[i].getNode().start();
+      // TO DO: animate items when they are added to the stage
+      for (let i = 0; i < this.$refs.group.length; i++) {
+        this.$refs.group[i].$children[0].getNode().start();
       }
     },
 
@@ -259,7 +251,6 @@ export default {
     },
 
     addItem(){
-      // console.log(this.randomNumber() * StageWidth);
 
       this.rectangles.push({
         name: 'rectangle-'+nRectangles,
@@ -269,7 +260,7 @@ export default {
         width: 100,
         height: 100,
         fill: 'transparent',
-        draggable: true,
+        draggable: false,
         animation: 'vibrato',
         frameRate: 10,
         frameIndex: 1,
