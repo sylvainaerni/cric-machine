@@ -6,6 +6,7 @@ Vue.config.productionTip = false;
 
 
 import VueKonva from "vue-konva";
+VueKonva.pixelRatio = 1;
 Vue.use(VueKonva);
 
 
