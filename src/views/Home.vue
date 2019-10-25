@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
-    <button class=" mr-5 p-2 bg-green-400" @click="addItem">Add Item</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem('sheetsSimpleJump')">Add Sheets</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem('cubeSmall')">Add cube</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
 
@@ -107,6 +108,11 @@ export default {
   },
 
   methods: {
+    addItem(type){
+      store.addItem(type);
+      this.reloadAllImages();
+      // TODO: start the animation after new item is added/mounted
+    },
 
     deleteItem(e){
       console.log('item', e.target.parent.name());
@@ -189,14 +195,6 @@ export default {
       for (let i = 0; i < this.rectangles.length; i++) {
         this.rectangles[i].sprite.image = image;
       }
-    },
-
-    addItem(){
-      store.addItem();
-
-      this.reloadAllImages();
-      // TODO: start the animation after new item is added/mounted
-
     }
   },
 

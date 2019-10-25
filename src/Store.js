@@ -114,14 +114,14 @@ export const store = {
     ]
   },
 
-  addItem() {
+  addItem(type) {
     let nameIndex = 'group-' + this.state.rectangles.length;
     let newItem = {
       x: 600,
-      y: 200,
+      y: 400,
       name: nameIndex,
       actionsAreVisible: false,
-      sprite: library.sheetsSimpleJump
+      sprite: library[type]
     }
 
     this.state.rectangles.push(newItem);
