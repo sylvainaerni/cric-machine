@@ -4,57 +4,68 @@
     <button class=" mr-5 p-2 bg-red-400" @click="removeItem(rectangles.length-1)">Remove Last Item</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
-    <div :class=" isHovering ? 'fixed bottom-0 p-2 bg-green-600' : 'hidden' " >
-      {{ hoveredGroup ? hoveredGroup.attrs.name : 'target' }}
-    </div>
 
-    <v-stage ref="stage" :config="stageSize">
+      <!--@mousedown="handleStageMouseDown"-->
+    <v-stage
+      ref="stage"
+      :config="stageSize"
+    >
       <v-layer ref="layer">
 
         <v-group
           v-for="(item, index) in rectangles"
-          @mouseover="handleMouseOver"
-          @mouseout="handleMouseOut"
-          @dragstart="handleDragStart"
-          @dragend="handleDragEnd"
+
           :key="`group-${index}`"
           :name="`group-${index}`"
           ref="group"
+          type="group"
           draggable="true"
-          blue="200"
           :x=300*index
           :y=200
         >
           <v-sprite
+            @mouseover="handleMouseOver"
+            @mouseout="handleMouseOut"
+            @dragstart="handleDragStart"
+            @dragend="handleDragEnd"
             :key="`sprite-${index}`"
             :config="item"
             ref="sprite"
+            type="sprite"
             :draggable=false
           />
-          <v-group
-            name="actions"
-            ref="action-group"
-            :opacity=0.5
-          >
-            <v-rect :config="{
-              x: 0,
-              y: 0,
-              width: 25,
-              height: 25,
-              fill: 'green'}" />
-            <v-rect :config="{
-              x: 26,
-              y: 0,
-              width: 25,
-              height: 25,
-              fill: 'green'}" />
-            <v-rect :config="{
-              x: 52,
-              y: 0,
-              width: 25,
-              height: 25,
-              fill: 'red'}" />
-          </v-group>
+
+          <v-rect
+            @mouseover="handleMouseOver"
+            @mouseout="handleMouseOut"
+            :visible=item.actionsAreVisible
+            :config="{
+            x: item.width -60,
+            y: -20,
+            width: 20,
+            height: 20,
+            fill: '#22dd22'}" />
+          <v-rect
+            @mouseover="handleMouseOver"
+            @mouseout="handleMouseOut"
+            :visible=item.actionsAreVisible
+            :config="{
+            x: item.width -40,
+            y: -20,
+            width: 20,
+            height: 20,
+            fill: '#11cc11'}" />
+          <v-rect
+            @click="deleteItem"
+            @mouseover="handleMouseOver"
+            @mouseout="handleMouseOut"
+            :visible=item.actionsAreVisible
+            :config="{
+            x: item.width -20,
+            y: -20,
+            width: 20,
+            height: 20,
+            fill: 'red'}" />
 
         </v-group>
 
@@ -65,9 +76,9 @@
 
 <script>
 
-let firstRectanglesExample = [
+let rectanglesListExample = [
   {
-    name: 'rectangle-0',
+    name: 'group-0',
     image: null,
     width: 300,
     height: 250,
@@ -86,10 +97,11 @@ let firstRectanglesExample = [
           0,  0, 300, 250,
           300, 0, 300, 250,
           600, 0, 300, 250 ]
-    }
+    },
+    actionsAreVisible: false
   },
   {
-    name: 'rectangle-1',
+    name: 'group-1',
     image: null,
     width: 150,
     height: 130,
@@ -103,13 +115,14 @@ let firstRectanglesExample = [
           0,  250, 150, 130,
           150, 250, 150, 130
       ]
-    }
+    },
+    actionsAreVisible: false
   },
   {
-    name: 'rectangle-2',
+    name: 'group-2',
     image: null,
-    width: 100,
-    height: 100,
+    width: 130,
+    height: 160,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -130,12 +143,13 @@ let firstRectanglesExample = [
         650, 410, 130, 160,
         780, 410, 130, 160
       ]
-    }
+    },
+    actionsAreVisible: false
   },
   {
-    name: 'rectangle-4',
+    name: 'group-3',
     image: null,
-    width: 100,
+    width: 70,
     height: 100,
     fill: 'transparent',
     animation: 'vibrato',
@@ -151,7 +165,8 @@ let firstRectanglesExample = [
         280, 570, 70, 100,
         350, 570, 70, 100
       ]
-    }
+    },
+    actionsAreVisible: false
   }
 ];
 const StageWidth = window.innerWidth;
@@ -172,61 +187,75 @@ export default {
         height: StageHeight
       },
       image: image,
-      dragItemId: null,
-      hoveredGroup: null,
-      isHovering: false,
-      isDragging: false,
-      rectangles: firstRectanglesExample
+      currentRectangle: null,
+      rectangles: rectanglesListExample
     };
   },
   methods: {
 
+    deleteItem(e){
+      let rectangleName = e.target.parent.name();
+
+      this.rectangles = this.rectangles.filter(item => item.name != rectangleName);
+    },
+
+    findVueRectangleItem(target) {
+      // find target name in the rectangles list and return the rectangle:
+      let rectangleName = target.parent.name();
+      return this.rectangles.find(s => s.name === rectangleName);
+    },
+
+    showActionItems(rectangle) {
+      rectangle.actionsAreVisible = true;
+    },
+
+    hideActionItems(rectangle) {
+      rectangle.actionsAreVisible = false;
+    },
+
     handleMouseOver(e) {
-      this.isHovering = true;
-      this.hoveredGroup = e.target.parent;
-      console.log('e.target',this.hoveredGroup.children[1].attrs);
-      this.hoveredGroup.children[0].attrs.fill = colorRedTransparent02;
-      this.hoveredGroup.children[1].attrs.opacity = 1;
-      console.log('e.target',this.hoveredGroup.children[1].attrs);
+      const rectangle = this.findVueRectangleItem(e.target);
+      rectangle.fill = colorRedTransparent02;
+      this.showActionItems(rectangle);
     },
 
     handleMouseOut(e) {
-      this.hoveredGroup.attrs.fill = 'transparent';
-      this.hoveredGroup = null;
-      this.isHovering = false;
+      const rectangle = this.findVueRectangleItem(e.target);
+      rectangle.fill = "transparent";
+      this.hideActionItems(rectangle);
     },
 
     handleDragStart(e) {
-      // this.isDragging = true;
-      console.log('start drag: ', e.target.attrs)
-      e.target.attrs.fill = colorRedTransparent03;
+      // const item = this.findVueRectangleItem(e.target);
+      // console.log('item: ', item)
+      // if (item) item.fill = colorRedTransparent03;
     },
 
     handleDragEnd(e) {
-      // this.isDragging = false;
-      e.target.attrs.fill = colorRedTransparent02;
+      // const item = this.findVueRectangleItem(e.target);
+      // if (item) item.fill = colorRedTransparent02;
     },
 
-    handleStageMouseDown(e) {
-      // clicked on stage - clear selection
-      if (e.target === e.target.getStage()) {
-        this.dragItemId = '';
-        return;
-      }
+    // handleStageMouseDown(e) {
+    //   // clicked on stage - clear selection
+    //   if (e.target === e.target.getStage() ) {
+    //     if (!this.currentRectangle) return;
 
-      // find clicked Vue rectangle by its name
-      const name = e.target.name();
-      const rectangle = this.rectangles.find(s => s.name === name);
+    //     this.currentRectangle.fill = "transparent";
+    //     this.currentRectangle = null;
+    //     return;
+    //   }
 
+    //   const rectangle = this.findVueRectangleItem(e.target);
 
-      if (rectangle) {
-        this.dragItemId = name;
-
-      } else {
-        this.dragItemId = "";
-      }
-      console.log(this.dragItemId);
-    },
+    //   if (rectangle) {
+    //     this.currentRectangle = rectangle;
+    //     this.currentRectangle.fill = colorRedTransparent02;
+    //   } else {
+    //     this.currentRectangle.fill = "transparent";
+    //     this.currentRectangle = null;
+    //   }
+    // },
 
     animateSprites() {
       // TO DO: animate items when they are added to the stage
@@ -241,12 +270,10 @@ export default {
     },
 
     randomXPos : function(){
-      console.log();
       return Math.floor(Math.random() * (StageHeight - 1 + 1)) + 1;
     },
 
     randomYPos : function(){
-      console.log();
       return Math.floor(Math.random() * (StageHeight - 1 + 1)) + 1;
     },
 
