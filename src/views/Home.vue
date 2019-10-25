@@ -14,14 +14,13 @@
 
         <v-group
           v-for="(item, index) in rectangles"
-
           :key="`group-${index}`"
           :name="`group-${index}`"
           ref="group"
           type="group"
           draggable="true"
-          :x=300*index
-          :y=200
+          :x=item.x
+          :y=item.y
         >
           <v-sprite
             @mouseover="handleMouseOver"
@@ -29,7 +28,7 @@
             @dragstart="handleDragStart"
             @dragend="handleDragEnd"
             :key="`sprite-${index}`"
-            :config="item"
+            :config="item.sprite"
             ref="sprite"
             type="sprite"
             :draggable=false
@@ -38,9 +37,10 @@
           <v-rect
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
+            key="actionMoveTop"
             :visible=item.actionsAreVisible
             :config="{
-            x: item.width -60,
+            x: item.sprite.width -60,
             y: -20,
             width: 20,
             height: 20,
@@ -48,9 +48,10 @@
           <v-rect
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
+            key="actionMoveDown"
             :visible=item.actionsAreVisible
             :config="{
-            x: item.width -40,
+            x: item.sprite.width -40,
             y: -20,
             width: 20,
             height: 20,
@@ -59,9 +60,10 @@
             @click="deleteItem"
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
+            key="actionDelete"
             :visible=item.actionsAreVisible
             :config="{
-            x: item.width -20,
+            x: item.sprite.width -20,
             y: -20,
             width: 20,
             height: 20,
@@ -78,95 +80,106 @@
 
 let rectanglesListExample = [
   {
+    x: 50,
+    y:200,
     name: 'group-0',
-    image: null,
-    width: 300,
-    height: 250,
-    fill: 'transparent',
-    rotation: 0,
-    offset: {
-      x: 0,
-      y: 0
-    },
-    animation: 'vibrato',
-    frameRate: 10,
-    frameIndex: 0,
-    animations: {
-      vibrato: [
-        // x, y, width, height (3 frames)
-          0,  0, 300, 250,
-          300, 0, 300, 250,
-          600, 0, 300, 250 ]
-    },
-    actionsAreVisible: false
+    actionsAreVisible: false,
+    sprite: {
+      image: null,
+      width: 300,
+      height: 250,
+      fill: 'transparent',
+      animation: 'vibrato',
+      frameRate: 10,
+      frameIndex: 0,
+      animations: {
+        vibrato: [
+          // x, y, width, height (3 frames)
+            0,  0, 300, 250,
+            300, 0, 300, 250,
+            600, 0, 300, 250 ]
+      }
+    }
   },
   {
+    x: 400,
+    y: 200,
     name: 'group-1',
-    image: null,
-    width: 150,
-    height: 130,
-    fill: 'transparent',
-    animation: 'vibrato',
-    frameRate: 5,
-    frameIndex: 1,
-    animations: {
-      vibrato: [
-        // x, y, width, height (3 frames)
-          0,  250, 150, 130,
-          150, 250, 150, 130
-      ]
-    },
-    actionsAreVisible: false
+    actionsAreVisible: false,
+    sprite: {
+      image: null,
+      width: 150,
+      height: 130,
+      fill: 'transparent',
+      animation: 'vibrato',
+      frameRate: 5,
+      frameIndex: 1,
+      animations: {
+        vibrato: [
+          // x, y, width, height (3 frames)
+            0,  250, 150, 130,
+            150, 250, 150, 130
+        ]
+      }
+    }
   },
   {
+    x: 600,
+    y: 200,
     name: 'group-2',
-    image: null,
-    width: 130,
-    height: 160,
-    fill: 'transparent',
-    animation: 'vibrato',
-    frameRate: 10,
-    frameIndex: 1,
-    animations: {
-      vibrato: [
-        // x, y, width, height (3 frames)
-        300, 250, 130, 160,
-        430, 250, 130, 160,
-        560, 250, 130, 160,
-        690, 250, 130, 160,
-        820, 250, 130, 160,
-          0, 410, 130, 160,
-        130, 410, 130, 160,
-        260, 410, 130, 160,
-        390, 410, 130, 160,
-        520, 410, 130, 160,
-        650, 410, 130, 160,
-        780, 410, 130, 160
-      ]
-    },
-    actionsAreVisible: false
+    actionsAreVisible: false,
+    sprite: {
+      image: null,
+      width: 130,
+      height: 160,
+      fill: 'transparent',
+      animation: 'vibrato',
+      frameRate: 10,
+      frameIndex: 1,
+      animations: {
+        vibrato: [
+          // x, y, width, height (3 frames)
+          300, 250, 130, 160,
+          430, 250, 130, 160,
+          560, 250, 130, 160,
+          690, 250, 130, 160,
+          820, 250, 130, 160,
+            0, 410, 130, 160,
+          130, 410, 130, 160,
+          260, 410, 130, 160,
+          390, 410, 130, 160,
+          520, 410, 130, 160,
+          650, 410, 130, 160,
+          780, 410, 130, 160
+        ]
+      }
+    }
   },
   {
+    x: 800,
+    y: 200,
     name: 'group-3',
-    image: null,
-    width: 70,
-    height: 100,
-    fill: 'transparent',
-    animation: 'vibrato',
-    frameRate: 10,
-    frameIndex: 1,
-    animations: {
-      vibrato: [
-        // x, y, width, height (3 frames)
-          0, 570, 70, 100,
-          70, 570, 70, 100,
-        140, 570, 70, 100,
-        210, 570, 70, 100,
-        280, 570, 70, 100,
-        350, 570, 70, 100
-      ]
-    },
-    actionsAreVisible: false
+    actionsAreVisible: false,
+    sprite: {
+      image: null,
+      width: 70,
+      height: 100,
+      fill: 'transparent',
+      animation: 'vibrato',
+      frameRate: 10,
+      frameIndex: 1,
+      animations: {
+        vibrato: [
+          // x, y, width, height (3 frames)
+            0, 570, 70, 100,
+            70, 570, 70, 100,
+          140, 570, 70, 100,
+          210, 570, 70, 100,
+          280, 570, 70, 100,
+          350, 570, 70, 100
+        ]
+      }
+    }
   }
 ];
 const StageWidth = window.innerWidth;
@@ -186,16 +199,18 @@ export default {
         width: StageWidth,
         height: StageHeight
       },
-      image: image,
-      currentRectangle: null,
+      sprite: {
+        image: image
+      },
       rectangles: rectanglesListExample
     };
   },
+
   methods: {
 
     deleteItem(e){
       let rectangleName = e.target.parent.name();
-
+      console.log(this.rectangles);
       this.rectangles = this.rectangles.filter(item => item.name != rectangleName);
     },
 
@@ -215,47 +230,24 @@ export default {
 
     handleMouseOver(e) {
       const rectangle = this.findVueRectangleItem(e.target);
-      rectangle.fill = colorRedTransparent02;
+      console.log('rectangle', rectangle);
+      rectangle.sprite.fill = colorRedTransparent02;
       this.showActionItems(rectangle);
     },
 
     handleMouseOut(e) {
       const rectangle = this.findVueRectangleItem(e.target);
-      rectangle.fill = "transparent";
+      rectangle.sprite.fill = "transparent";
       this.hideActionItems(rectangle);
     },
 
     handleDragStart(e) {
-      // const item = this.findVueRectangleItem(e.target);
-      // console.log('item: ', item)
-      // if (item) item.fill = colorRedTransparent03;
+
     },
 
     handleDragEnd(e) {
-      // const item = this.findVueRectangleItem(e.target);
-      // if (item) item.fill = colorRedTransparent02;
+
     },
-
-    // handleStageMouseDown(e) {
-    //   // clicked on stage - clear selection
-    //   if (e.target === e.target.getStage() ) {
-    //     if (!this.currentRectangle) return;
-
-    //     this.currentRectangle.fill = "transparent";
-    //     this.currentRectangle = null;
-    //     return;
-    //   }
-
-    //   const rectangle = this.findVueRectangleItem(e.target);
-
-    //   if (rectangle) {
-    //     this.currentRectangle = rectangle;
-    //     this.currentRectangle.fill = colorRedTransparent02;
-    //   } else {
-    //     this.currentRectangle.fill = "transparent";
-    //     this.currentRectangle = null;
-    //   }
-    // },
 
     animateSprites() {
       // TO DO: animate items when they are added to the stage
@@ -334,7 +326,7 @@ export default {
     image.onload = () => {
       // set image only when it is loaded
       for (let i = 0; i < this.rectangles.length; i++) {
-        this.rectangles[i].image = image;
+        this.rectangles[i].sprite.image = image;
       }
     };
   },
