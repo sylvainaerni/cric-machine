@@ -2,6 +2,7 @@
   <div class="relative">
     <button class=" mr-5 p-2 bg-green-600" @click="addItem('sheetsSimpleJump')">Add Sheets</button>
     <button class=" mr-5 p-2 bg-green-600" @click="addItem('cubeSmall')">Add cube</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem('wheel001')">Add Wheel</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
 
