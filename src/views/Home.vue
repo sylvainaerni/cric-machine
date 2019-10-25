@@ -1,7 +1,6 @@
 <template>
   <div class="relative">
     <button class=" mr-5 p-2 bg-green-400" @click="addItem">Add Item</button>
-    <button class=" mr-5 p-2 bg-red-400" @click="removeItem(rectangles.length-1)">Remove Last Item</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
 
@@ -40,22 +39,26 @@
             key="actionMoveTop"
             :visible=item.actionsAreVisible
             :config="{
-            x: item.sprite.width -60,
-            y: -20,
-            width: 20,
-            height: 20,
-            fill: '#22dd22'}" />
+              x: item.sprite.width -60,
+              y: -20,
+              width: 20,
+              height: 20,
+              fill: '#22dd22'
+            }"
+          />
           <v-rect
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
             key="actionMoveDown"
             :visible=item.actionsAreVisible
             :config="{
-            x: item.sprite.width -40,
-            y: -20,
-            width: 20,
-            height: 20,
-            fill: '#11cc11'}" />
+              x: item.sprite.width -40,
+              y: -20,
+              width: 20,
+              height: 20,
+              fill: '#11cc11'
+            }"
+          />
           <v-rect
             @click="deleteItem"
             @mouseover="handleMouseOver"
@@ -63,11 +66,12 @@
             key="actionDelete"
             :visible=item.actionsAreVisible
             :config="{
-            x: item.sprite.width -20,
-            y: -20,
-            width: 20,
-            height: 20,
-            fill: 'red'}" />
+              x: item.sprite.width -20,
+              y: -20,
+              width: 20,
+              height: 20,
+              fill: 'red'}"
+          />
 
         </v-group>
 
@@ -78,119 +82,15 @@
 
 <script>
 
-let rectanglesListExample = [
-  {
-    x: 50,
-    y:200,
-    name: 'group-0',
-    actionsAreVisible: false,
-    sprite: {
-      image: null,
-      width: 300,
-      height: 250,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 0,
-      animations: {
-        vibrato: [
-          // x, y, width, height (3 frames)
-            0,  0, 300, 250,
-            300, 0, 300, 250,
-            600, 0, 300, 250 ]
-      }
-    }
-  },
-  {
-    x: 400,
-    y: 200,
-    name: 'group-1',
-    actionsAreVisible: false,
-    sprite: {
-      image: null,
-      width: 150,
-      height: 130,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 5,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height (3 frames)
-            0,  250, 150, 130,
-            150, 250, 150, 130
-        ]
-      }
-    }
-  },
-  {
-    x: 600,
-    y: 200,
-    name: 'group-2',
-    actionsAreVisible: false,
-    sprite: {
-      image: null,
-      width: 130,
-      height: 160,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height (3 frames)
-          300, 250, 130, 160,
-          430, 250, 130, 160,
-          560, 250, 130, 160,
-          690, 250, 130, 160,
-          820, 250, 130, 160,
-            0, 410, 130, 160,
-          130, 410, 130, 160,
-          260, 410, 130, 160,
-          390, 410, 130, 160,
-          520, 410, 130, 160,
-          650, 410, 130, 160,
-          780, 410, 130, 160
-        ]
-      }
-    }
-  },
-  {
-    x: 800,
-    y: 200,
-    name: 'group-3',
-    actionsAreVisible: false,
-    sprite: {
-      image: null,
-      width: 70,
-      height: 100,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height (3 frames)
-            0, 570, 70, 100,
-            70, 570, 70, 100,
-          140, 570, 70, 100,
-          210, 570, 70, 100,
-          280, 570, 70, 100,
-          350, 570, 70, 100
-        ]
-      }
-    }
-  }
-];
 const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
 const image = new window.Image();
-let   nRectangles = 4; // TO DO: find solution for the id's
+let   nGroups = 4; // TO DO: find solution for the id's
 
 const colorRedTransparent03 = 'rgba(255,0,0,0.3)';
 const colorRedTransparent02 = 'rgba(255,0,0,0.2)';
 
-
+import { store } from "../Store.js";
 
 export default {
   data() {
@@ -202,17 +102,33 @@ export default {
       sprite: {
         image: image
       },
-      rectangles: rectanglesListExample
+      rectangles: store.state.rectangles
     };
   },
 
   methods: {
 
     deleteItem(e){
-      let rectangleName = e.target.parent.name();
-      console.log(this.rectangles);
-      this.rectangles = this.rectangles.filter(item => item.name != rectangleName);
+      console.log('item', e.target.parent.name());
+      let index = e.target.parent.index;
+      this.rectangles.splice(index,1);
+      // // let rectangleName = e.target.parent.name();
+      // let index =  this.rectangles.map(function(e) { return e.name; }).indexOf(item.name);
+
+      // console.log('index', index);
+      // this.rectangles.splice(index,1);
+      // // nGroups--;
     },
+
+    // deleteItem(item){
+    //   console.log('item', item.name);
+    //   // let rectangleName = e.target.parent.name();
+    //   let index =  this.rectangles.map(function(e) { return e.name; }).indexOf(item.name);
+
+    //   console.log('index', index);
+    //   this.rectangles.splice(index,1);
+    //   // nGroups--;
+    // },
 
     findVueRectangleItem(target) {
       // find target name in the rectangles list and return the rectangle:
@@ -230,7 +146,7 @@ export default {
 
     handleMouseOver(e) {
       const rectangle = this.findVueRectangleItem(e.target);
-      console.log('rectangle', rectangle);
+      console.log('rectangles', this.rectangles);
       rectangle.sprite.fill = colorRedTransparent02;
       this.showActionItems(rectangle);
     },
@@ -269,75 +185,36 @@ export default {
       return Math.floor(Math.random() * (StageHeight - 1 + 1)) + 1;
     },
 
-    addItem(){
-
-      this.rectangles.push({
-        name: 'rectangle-'+nRectangles,
-        image: this.image,
-        x: this.randomXPos(),
-        y: this.randomYPos(),
-        width: 100,
-        height: 100,
-        fill: 'transparent',
-        draggable: false,
-        animation: 'vibrato',
-        frameRate: 10,
-        frameIndex: 1,
-        animations: {
-          vibrato: [
-            // x, y, width, height (18 frames)
-            300, 250, 130, 160,
-            430, 250, 130, 160,
-            300, 250, 130, 160,
-            430, 250, 130, 160,
-            300, 250, 130, 160,
-            430, 250, 130, 160,
-            300, 250, 130, 160,
-            430, 250, 130, 160,
-            560, 250, 130, 160,
-            690, 250, 130, 160,
-            820, 250, 130, 160,
-              0, 410, 130, 160,
-            130, 410, 130, 160,
-            260, 410, 130, 160,
-            390, 410, 130, 160,
-            520, 410, 130, 160,
-            650, 410, 130, 160,
-            780, 410, 130, 160
-          ]
-        }
-      });
-
-      nRectangles++;
-
-      // TODO: start the animation after new item is added/mounted
-
-    },
-
-    removeItem(index) {
-      console.log('index',index);
-      this.rectangles.splice(index,1);
-      nRectangles--;
-    }
-  },
-
-  created() {
-    image.src = require(`@/assets/sprites/cric-test.png`);
-    image.onload = () => {
-      // set image only when it is loaded
+    reloadAllImages : function(){
       for (let i = 0; i < this.rectangles.length; i++) {
         this.rectangles[i].sprite.image = image;
       }
-    };
+    },
+
+    addItem(){
+      store.addItem();
+
+      this.reloadAllImages();
+      // TODO: start the animation after new item is added/mounted
+
+    }
   },
 
   mounted() {
-    // this.animateSprites()
+    image.src = require(`@/assets/sprites/cric-test.png`);
+    image.onload = () => {
+      // set image only when it is loaded
+      this.reloadAllImages();
+    };
   }
 };
 </script>
 
-<style lang="postcss" scoped>
+<style lang="postcss" >
+body {
+  background-color: #ccb786;
+  background-image: url("https://www.transparenttextures.com/patterns/black-paper.png");
+}
 /* .actions {
   @apply absolute p-2 bg-gray-500;
 
