@@ -1,9 +1,9 @@
 <template>
   <div class="relative">
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem('sheetsSimpleJump')">Add Sheets</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem('cubeSmall')">Add cube</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem('wheel001')">Add Wheel</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="animateSprites">Animate</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
 
       <!--@mousedown="handleStageMouseDown"-->
@@ -62,7 +62,7 @@
             }"
           />
           <v-rect
-            @click="deleteItem"
+            @click="removeItem"
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
             key="actionDelete"
@@ -87,10 +87,11 @@
 const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
 const image = new window.Image();
-let   nGroups = 4; // TO DO: find solution for the id's
 
 const colorRedTransparent03 = 'rgba(255,0,0,0.3)';
 const colorRedTransparent02 = 'rgba(255,0,0,0.2)';
+
+let currentRectangle = undefined;
 
 import { store } from "../Store.js";
 
@@ -109,39 +110,23 @@ export default {
   },
 
   methods: {
-    addItem(type){
-      store.addItem(type);
-      this.reloadAllImages();
+    addItem(animationParam){
+      store.addItem(animationParam);
+      // this.reloadAllImages();
+      // this.animateAllSprites();
       // TODO: start the animation after new item is added/mounted
     },
 
-    deleteItem(e){
-      console.log('item', e.target.parent.name());
-      let index = e.target.parent.index;
-      this.rectangles.splice(index,1);
-      // // let rectangleName = e.target.parent.name();
-      // let index =  this.rectangles.map(function(e) { return e.name; }).indexOf(item.name);
+    removeItem(e){
+      let itemIndex = e.target.parent.itemIid;
 
-      // console.log('index', index);
-      // this.rectangles.splice(index,1);
-      // // nGroups--;
+      e.target.parent.destroy();
+      //store.removeItem(itemIndex);
+
     },
 
-    // deleteItem(item){
-    //   console.log('item', item.name);
-    //   // let rectangleName = e.target.parent.name();
-    //   let index =  this.rectangles.map(function(e) { return e.name; }).indexOf(item.name);
 
-    //   console.log('index', index);
-    //   this.rectangles.splice(index,1);
-    //   // nGroups--;
-    // },
 
-    findVueRectangleItem(target) {
-      // find target name in the rectangles list and return the rectangle:
-      let rectangleName = target.parent.name();
-      return this.rectangles.find(s => s.name === rectangleName);
-    },
 
     showActionItems(rectangle) {
       rectangle.actionsAreVisible = true;
@@ -152,16 +137,22 @@ export default {
     },
 
     handleMouseOver(e) {
-      const rectangle = this.findVueRectangleItem(e.target);
-      console.log('rectangles', this.rectangles);
-      rectangle.sprite.fill = colorRedTransparent02;
-      this.showActionItems(rectangle);
+      console.log(e.target.parent)
+      currentRectangle = store.findItem(e.target.parent.name());
+      currentRectangle.sprite.fill = colorRedTransparent02;
+
+      // TODO: be clear about node vs Vue Component vs store...
+      // let node = this.$refs.group[e.target.parent.index].getNode();
+      // console.log('.node', node.name() );
+
+
+      this.showActionItems(currentRectangle);
     },
 
     handleMouseOut(e) {
-      const rectangle = this.findVueRectangleItem(e.target);
-      rectangle.sprite.fill = "transparent";
-      this.hideActionItems(rectangle);
+      currentRectangle.sprite.fill = "transparent";
+      this.hideActionItems(currentRectangle);
+      currentRectangle = undefined;
     },
 
     handleDragStart(e) {
@@ -172,15 +163,10 @@ export default {
 
     },
 
-    animateSprites() {
-      // TO DO: animate items when they are added to the stage
-      for (let i = 0; i < this.$refs.group.length; i++) {
-        this.$refs.group[i].$children[0].getNode().start();
-      }
-    },
+
 
     reverseIndexes() {
-      this.rectangles.reverse();
+      store.state.rectangles.reverse();
       return;
     },
 
@@ -192,20 +178,51 @@ export default {
       return Math.floor(Math.random() * (StageHeight - 1 + 1)) + 1;
     },
 
+    animateAllSprites() {
+      // animate sprite contained in items when they are added to the stage
+      for (let i = 0; i < this.$refs.group.length; i++) {
+        this.$refs.group[i].$children[0].getNode().start();
+      }
+    },
+
     reloadAllImages : function(){
-      for (let i = 0; i < this.rectangles.length; i++) {
-        this.rectangles[i].sprite.image = image;
+      for (let i = 0; i < store.state.rectangles.length; i++) {
+        store.state.rectangles[i].sprite.image = image;
       }
     }
+  },
+
+  beforeMount(){
+    this.addItem({name: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
+    this.addItem({name: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
+    this.addItem({name: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
+    this.addItem({name: 'wheel001',         x: this.randomXPos(), y: this.randomYPos()});
   },
 
   mounted() {
     image.src = require(`@/assets/sprites/cric-test.png`);
     image.onload = () => {
-      // set image only when it is loaded
       this.reloadAllImages();
+      this.animateAllSprites();
     };
+  },
+
+  // TEST:
+  updated: function() {
+    console.log('updated')
+    this.$refs.layer.getStage().batchDraw()
+  },
+
+  // TEST
+  destroyed() {
+    console.log('destroyed')
+    var layer = this._stage.getLayer();
+    this._stage.destroy();
+    if (layer) {
+      layer.batchDraw();
+    }
   }
+
 };
 </script>
 

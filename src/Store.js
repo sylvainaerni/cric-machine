@@ -1,5 +1,5 @@
 
-const library = {
+const spriteLibrary = {
   sheetsSimpleJump: {
     image: null,
     width: 130,
@@ -80,50 +80,36 @@ const library = {
   }
 };
 
+let itemId = 0;
+
 export const store = {
   state: {
-    rectangles : [
-      {
-        x: 50,
-        y: 200,
-        name: 'group-0',
-        actionsAreVisible: false,
-        sprite: library.cubeBig
-      },
-      {
-        x: 400,
-        y: 200,
-        name: 'group-1',
-        actionsAreVisible: false,
-        sprite: library.cubeSmall
-      },
-      {
-        x: 600,
-        y: 200,
-        name: 'group-2',
-        actionsAreVisible: false,
-        sprite: library.sheetsSimpleJump
-      },
-      {
-        x: 800,
-        y: 200,
-        name: 'group-3',
-        actionsAreVisible: false,
-        sprite: library.wheel001
-      }
-    ]
+    rectangles : []
   },
 
-  addItem(type) {
-    let nameIndex = 'group-' + this.state.rectangles.length;
-    let newItem = {
-      x: 600,
-      y: 400,
-      name: nameIndex,
-      actionsAreVisible: false,
-      sprite: library[type]
-    }
+  findItem(itemName) {
+    return this.state.rectangles.find(s => s.name === itemName);
+  },
 
+
+  addItem(param) {
+
+    let newItem = {
+      x: param.x,
+      y: param.y,
+      name: 'group-' + itemId,
+      itemId: itemId,
+      actionsAreVisible: false,
+      sprite: spriteLibrary[param.name]
+    }
     this.state.rectangles.push(newItem);
-  }
+    itemId++;
+  },
+
+  removeItem(itemIndex) {
+    console.log('reitem', itemIndex);
+    store.state.rectangles.splice(itemIndex,1);
+  },
+
+
 };
