@@ -91,7 +91,7 @@ const image = new window.Image();
 const colorRedTransparent03 = 'rgba(255,0,0,0.3)';
 const colorRedTransparent02 = 'rgba(255,0,0,0.2)';
 
-let currentRectangle = undefined;
+let currentStoreGroup = undefined;
 
 import { store } from "../Store.js";
 
@@ -119,9 +119,10 @@ export default {
 
     removeItem(e){
       let itemIndex = e.target.parent.itemIid;
-
       e.target.parent.destroy();
-      //store.removeItem(itemIndex);
+      // store.removeItem(itemIndex);
+      console.log('store.state', store.state);
+
 
     },
 
@@ -137,22 +138,22 @@ export default {
     },
 
     handleMouseOver(e) {
-      console.log(e.target.parent)
-      currentRectangle = store.findItem(e.target.parent.name());
-      currentRectangle.sprite.fill = colorRedTransparent02;
+      currentStoreGroup = store.findItem(e.target.parent.attrs.name);
+      //console.log('currentStoreGroup', currentStoreGroup)
+      currentStoreGroup.sprite.fill = colorRedTransparent02;
 
       // TODO: be clear about node vs Vue Component vs store...
       // let node = this.$refs.group[e.target.parent.index].getNode();
       // console.log('.node', node.name() );
 
 
-      this.showActionItems(currentRectangle);
+      this.showActionItems(currentStoreGroup);
     },
 
     handleMouseOut(e) {
-      currentRectangle.sprite.fill = "transparent";
-      this.hideActionItems(currentRectangle);
-      currentRectangle = undefined;
+      currentStoreGroup.sprite.fill = "transparent";
+      this.hideActionItems(currentStoreGroup);
+      currentStoreGroup = undefined;
     },
 
     handleDragStart(e) {

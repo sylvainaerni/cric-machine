@@ -91,9 +91,7 @@ export const store = {
     return this.state.rectangles.find(s => s.name === itemName);
   },
 
-
   addItem(param) {
-
     let newItem = {
       x: param.x,
       y: param.y,
