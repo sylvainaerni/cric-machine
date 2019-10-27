@@ -139,21 +139,23 @@ export default {
 
     handleMouseOver(e) {
       currentStoreGroup = store.findItem(e.target.parent.attrs.name);
-      //console.log('currentStoreGroup', currentStoreGroup)
-      currentStoreGroup.sprite.fill = colorRedTransparent02;
+      let nodeSprite = this.$refs.group[currentStoreGroup.itemId].$children[0].getNode();
 
-      // TODO: be clear about node vs Vue Component vs store...
-      // let node = this.$refs.group[e.target.parent.index].getNode();
-      // console.log('.node', node.name() );
-
-
+      nodeSprite.attrs.fill = colorRedTransparent02;
       this.showActionItems(currentStoreGroup);
     },
 
     handleMouseOut(e) {
-      currentStoreGroup.sprite.fill = "transparent";
-      this.hideActionItems(currentStoreGroup);
-      currentStoreGroup = undefined;
+      if (e.target.parent){
+        currentStoreGroup = store.findItem(e.target.parent.attrs.name);
+        //console.log('currentStoreGroup', currentStoreGroup.itemId)
+
+        // TODO: be clear about node vs Vue Component vs store...
+        let nodeSprite = this.$refs.group[currentStoreGroup.itemId].$children[0].getNode();
+        nodeSprite.attrs.fill = "transparent";
+        this.hideActionItems(currentStoreGroup);
+        currentStoreGroup = undefined;
+      }
     },
 
     handleDragStart(e) {
