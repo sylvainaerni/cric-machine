@@ -1,14 +1,15 @@
 <template>
-  <div class="relative">
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeBig',        x: randomXPos(), y: randomYPos()})">Add cube+</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="save">Save</button>
-    <button class=" mr-5 p-2 bg-green-600" @click="load">Load</button>
-
+  <div class=" fixed top-0 right-0 bottom-0 left-0">
+    <div class=" absolute top-0 left-0 z-10">
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeBig',        x: randomXPos(), y: randomYPos()})">Add cube+</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="save">Save</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="load">Load</button>
+    </div>
       <!--@mousedown="handleStageMouseDown"-->
     <v-stage
       ref="stage"
