@@ -84,29 +84,35 @@ let itemId = 0;
 
 export const store = {
   state: {
-    rectangles : []
-  },
-
-  findItem(itemName) {
-    return this.state.rectangles.find(s => s.name === itemName);
+    items : []
   },
 
   addItem(param) {
     let newItem = {
-      x: param.x,
-      y: param.y,
       name: 'group-' + itemId,
       itemId: itemId,
+      x: param.x,
+      y: param.y,
       actionsAreVisible: false,
       sprite: spriteLibrary[param.name]
     }
-    this.state.rectangles.push(newItem);
+    this.state.items.push(newItem);
     itemId++;
   },
 
-  removeItem(itemIndex) {
-    console.log('reitem', itemIndex);
-    store.state.rectangles.splice(itemIndex,1);
+  showActionItems(itemName) {
+    const index = store.state.items.findIndex(x => x.name === itemName);
+    if (index !== undefined) store.state.items[index].actionsAreVisible = true;
+  },
+
+  hideActionItems(itemName) {
+    const index = store.state.items.findIndex(x => x.name === itemName);
+    if (index !== undefined) store.state.items[index].actionsAreVisible = false;
+  },
+
+  removeItem(itemName) {
+    const index = store.state.items.findIndex(x => x.name === itemName);
+    if (index !== undefined) store.state.items.splice(index, 1);
   },
 
 

@@ -2,6 +2,7 @@
   <div class="relative">
     <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
     <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeBig',        x: randomXPos(), y: randomYPos()})">Add cube+</button>
     <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
@@ -14,31 +15,48 @@
       <v-layer ref="layer">
 
         <v-group
-          v-for="(item, index) in rectangles"
-          :key="`group-${index}`"
-          :name="`group-${index}`"
+          v-for="item in items"
+          :key="`group-${item.itemId}`"
+          :name=item.name
+          :itemId=item.itemId
+          :x=item.x
+          :y=item.y
           ref="group"
           type="group"
           draggable="true"
-          :x=item.x
-          :y=item.y
         >
+          <v-rect
+            :visible=item.actionsAreVisible
+            :config="{
+              x: 0,
+              y: 0,
+              width: item.sprite.width,
+              height: item.sprite.height,
+              fill: item.actionsAreVisible ? 'rgba(255,0,0,0.2)' : 'transparent'
+            }"
+          />
           <v-sprite
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
             @dragstart="handleDragStart"
             @dragend="handleDragEnd"
-            :key="`sprite-${index}`"
             :config="item.sprite"
             ref="sprite"
             type="sprite"
             :draggable=false
           />
+          <v-rect
+            :config="{
+              x: item.sprite.width -60,
+              y: -20,
+              width: 20,
+              height: 20,
 
+            }"
+          />
           <v-rect
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
-            key="actionMoveTop"
             :visible=item.actionsAreVisible
             :config="{
               x: item.sprite.width -60,
@@ -51,7 +69,6 @@
           <v-rect
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
-            key="actionMoveDown"
             :visible=item.actionsAreVisible
             :config="{
               x: item.sprite.width -40,
@@ -65,7 +82,6 @@
             @click="removeItem"
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
-            key="actionDelete"
             :visible=item.actionsAreVisible
             :config="{
               x: item.sprite.width -20,
@@ -88,11 +104,6 @@ const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
 const image = new window.Image();
 
-const colorRedTransparent03 = 'rgba(255,0,0,0.3)';
-const colorRedTransparent02 = 'rgba(255,0,0,0.2)';
-
-let currentStoreGroup = undefined;
-
 import { store } from "../Store.js";
 
 export default {
@@ -105,71 +116,35 @@ export default {
       sprite: {
         image: image
       },
-      rectangles: store.state.rectangles
+      items: store.state.items
     };
   },
 
   methods: {
     addItem(animationParam){
       store.addItem(animationParam);
-      // this.reloadAllImages();
-      // this.animateAllSprites();
-      // TODO: start the animation after new item is added/mounted
     },
 
     removeItem(e){
-      let itemIndex = e.target.parent.itemIid;
-      e.target.parent.destroy();
-      // store.removeItem(itemIndex);
-      console.log('store.state', store.state);
-
-
-    },
-
-
-
-
-    showActionItems(rectangle) {
-      rectangle.actionsAreVisible = true;
-    },
-
-    hideActionItems(rectangle) {
-      rectangle.actionsAreVisible = false;
+      store.removeItem(e.target.parent.attrs.name);
     },
 
     handleMouseOver(e) {
-      currentStoreGroup = store.findItem(e.target.parent.attrs.name);
-      let nodeSprite = this.$refs.group[currentStoreGroup.itemId].$children[0].getNode();
-
-      nodeSprite.attrs.fill = colorRedTransparent02;
-      this.showActionItems(currentStoreGroup);
+      store.showActionItems(e.target.parent.attrs.name);
     },
 
     handleMouseOut(e) {
-      if (e.target.parent){
-        currentStoreGroup = store.findItem(e.target.parent.attrs.name);
-        //console.log('currentStoreGroup', currentStoreGroup.itemId)
-
-        // TODO: be clear about node vs Vue Component vs store...
-        let nodeSprite = this.$refs.group[currentStoreGroup.itemId].$children[0].getNode();
-        nodeSprite.attrs.fill = "transparent";
-        this.hideActionItems(currentStoreGroup);
-        currentStoreGroup = undefined;
-      }
+      store.hideActionItems(e.target.parent.attrs.name);
     },
 
-    handleDragStart(e) {
+    handleDragStart(e) {},
 
-    },
-
-    handleDragEnd(e) {
-
-    },
-
+    handleDragEnd(e) {},
 
 
     reverseIndexes() {
-      store.state.rectangles.reverse();
+      // just a test
+      store.state.items.reverse();
       return;
     },
 
@@ -184,13 +159,13 @@ export default {
     animateAllSprites() {
       // animate sprite contained in items when they are added to the stage
       for (let i = 0; i < this.$refs.group.length; i++) {
-        this.$refs.group[i].$children[0].getNode().start();
+        this.$refs.group[i].$children[1].getNode().start();
       }
     },
 
     reloadAllImages : function(){
-      for (let i = 0; i < store.state.rectangles.length; i++) {
-        store.state.rectangles[i].sprite.image = image;
+      for (let i = 0; i < store.state.items.length; i++) {
+        store.state.items[i].sprite.image = image;
       }
     }
   },
@@ -210,21 +185,20 @@ export default {
     };
   },
 
-  // TEST:
-  updated: function() {
-    console.log('updated')
-    this.$refs.layer.getStage().batchDraw()
-  },
 
-  // TEST
-  destroyed() {
-    console.log('destroyed')
-    var layer = this._stage.getLayer();
-    this._stage.destroy();
-    if (layer) {
-      layer.batchDraw();
-    }
-  }
+  // updated: function() {
+    // console.log('updated')
+    // this.$refs.layer.getStage().batchDraw()
+  // },
+
+   // destroyed() {
+    // console.log('destroyed')
+    // var layer = this._stage.getLayer();
+    // this._stage.destroy();
+    // if (layer) {
+      // layer.batchDraw();
+    // }
+  // }
 
 };
 </script>
