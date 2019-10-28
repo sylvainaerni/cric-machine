@@ -115,5 +115,14 @@ export const store = {
     if (index !== undefined) store.state.items.splice(index, 1);
   },
 
+  load() {
+    const data = localStorage.getItem('storage') || '[]';
+    this.state.items = JSON.parse(data);
+  },
+
+  save() {
+    localStorage.setItem('storage', JSON.stringify(this.state.items));
+  }
+
 
 };

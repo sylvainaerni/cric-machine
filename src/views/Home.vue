@@ -6,6 +6,8 @@
     <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
     <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
     <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="save">Save</button>
+    <button class=" mr-5 p-2 bg-green-600" @click="load">Load</button>
 
       <!--@mousedown="handleStageMouseDown"-->
     <v-stage
@@ -121,6 +123,14 @@ export default {
   },
 
   methods: {
+    save(){
+      store.save();
+    },
+
+    load(){
+      store.load();
+    },
+
     addItem(animationParam){
       store.addItem(animationParam);
     },
@@ -184,21 +194,6 @@ export default {
       this.animateAllSprites();
     };
   },
-
-
-  // updated: function() {
-    // console.log('updated')
-    // this.$refs.layer.getStage().batchDraw()
-  // },
-
-   // destroyed() {
-    // console.log('destroyed')
-    // var layer = this._stage.getLayer();
-    // this._stage.destroy();
-    // if (layer) {
-      // layer.batchDraw();
-    // }
-  // }
 
 };
 </script>
