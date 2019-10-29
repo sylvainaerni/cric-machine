@@ -187,13 +187,19 @@ export default {
   },
 
   beforeMount(){
-    // just throw randomly a few items on the stage:
-    this.addItem({spriteName: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
+    // at the moment, we must `addItem` here all the shapes manually,
+    // otherwise it doen't draw when a new item is added.
+    // TO DO: remove these four lines without breaking everything...
+
+    this.addItem({spriteName: 'cubeBig',          x: -10000, y: 0});
+    this.addItem({spriteName: 'cubeSmall',        x: -10000, y: 0});
+    this.addItem({spriteName: 'sheetsSimpleJump', x: -10000, y: 0});
+    this.addItem({spriteName: 'wheel001',         x: -10000, y: 0});
+
+    // this.addItem({spriteName: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'wheel001',         x: this.randomXPos(), y: this.randomYPos()});
-    //
-    //store.load();
   },
 
   mounted() {
