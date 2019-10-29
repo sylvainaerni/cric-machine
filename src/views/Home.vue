@@ -58,6 +58,7 @@
             }"
           />
           <v-rect
+            @click="pushItemUp"
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
             :visible=item.actionsAreVisible
@@ -70,6 +71,7 @@
             }"
           />
           <v-rect
+            @click="pushItemDown"
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
             :visible=item.actionsAreVisible
@@ -138,6 +140,14 @@ export default {
 
     removeItem(e){
       store.removeItem(e.target.parent.attrs.name);
+    },
+
+    pushItemUp(e){
+      store.pushItemUp(e.target.parent.attrs.name);
+    },
+
+    pushItemDown(e){
+      store.pushItemDown(e.target.parent.attrs.name);
     },
 
     handleMouseOver(e) {

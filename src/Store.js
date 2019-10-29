@@ -123,17 +123,38 @@ export const store = {
     if (index !== undefined) store.state.items.splice(index, 1);
   },
 
+  pushItemUp(itemName) {
+    const index = store.state.items.findIndex(x => x.name === itemName);
+    console.log('push the item up here', index)
+    if (index < store.state.items.length - 1)
+      this.moveItem(store.state.items, index, index + 1)
+  },
+
+  pushItemDown(itemName) {
+    const index = store.state.items.findIndex(x => x.name === itemName);
+    console.log('push the item down here', index)
+    if (index > 0)
+      this.moveItem(store.state.items, index, index - 1);
+  },
+
+  moveItem(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+  },
+
   removeAllItems() {
     store.state.items.splice(0, store.state.items.length);
   },
 
   load() {
     this.removeAllItems();
-
     const data = localStorage.getItem('storage') || '[]';
     let fetchedArray = JSON.parse(data);
-
-    console.log('LOAD fetchedArray', fetchedArray);
     for (let i = 0; i < fetchedArray.length; i++) {
       store.addItem(fetchedArray[i]);
     }
