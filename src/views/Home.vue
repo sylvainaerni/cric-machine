@@ -1,10 +1,10 @@
 <template>
   <div class=" fixed top-0 right-0 bottom-0 left-0">
     <div class=" absolute top-0 left-0 z-10">
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'cubeBig',        x: randomXPos(), y: randomYPos()})">Add cube+</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({name: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'cubeBig',        x: randomXPos(), y: randomYPos()})">Add cube+</button>
+      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
       <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
       <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
       <button class=" mr-5 p-2 bg-green-600" @click="save">Save</button>
@@ -19,6 +19,8 @@
 
         <v-group
           v-for="item in items"
+          @dragstart="handleDragStart"
+          @dragend="handleDragEnd"
           :key="`group-${item.itemId}`"
           :name=item.name
           :itemId=item.itemId
@@ -41,8 +43,6 @@
           <v-sprite
             @mouseover="handleMouseOver"
             @mouseout="handleMouseOut"
-            @dragstart="handleDragStart"
-            @dragend="handleDragEnd"
             :config="item.sprite"
             ref="sprite"
             type="sprite"
@@ -150,7 +150,10 @@ export default {
 
     handleDragStart(e) {},
 
-    handleDragEnd(e) {},
+    handleDragEnd(e) {
+      console.log('e.target.parent.attrs.name', e.target)
+      store.setNewPos(e.target);
+    },
 
 
     reverseIndexes() {
@@ -169,6 +172,8 @@ export default {
 
     animateAllSprites() {
       // animate sprite contained in items when they are added to the stage
+      console.log('animateAllSprites', this.$refs)
+      if(!this.$refs.group) return;
       for (let i = 0; i < this.$refs.group.length; i++) {
         this.$refs.group[i].$children[1].getNode().start();
       }
@@ -182,10 +187,13 @@ export default {
   },
 
   beforeMount(){
-    this.addItem({name: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
-    this.addItem({name: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
-    this.addItem({name: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
-    this.addItem({name: 'wheel001',         x: this.randomXPos(), y: this.randomYPos()});
+    // just throw randomly a few items on the stage:
+    this.addItem({spriteName: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
+    // this.addItem({spriteName: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
+    // this.addItem({spriteName: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
+    // this.addItem({spriteName: 'wheel001',         x: this.randomXPos(), y: this.randomYPos()});
+    //
+    //store.load();
   },
 
   mounted() {
@@ -193,6 +201,7 @@ export default {
     image.onload = () => {
       this.reloadAllImages();
       this.animateAllSprites();
+      console.log('IMAGE IS LOADED')
     };
   },
 

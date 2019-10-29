@@ -88,13 +88,15 @@ export const store = {
   },
 
   addItem(param) {
+    console.log('ADD ITEM param')
     let newItem = {
       name: 'group-' + itemId,
       itemId: itemId,
       x: param.x,
       y: param.y,
       actionsAreVisible: false,
-      sprite: spriteLibrary[param.name]
+      spriteName: param.spriteName,
+      sprite: spriteLibrary[param.spriteName]
     }
     this.state.items.push(newItem);
     itemId++;
@@ -110,19 +112,43 @@ export const store = {
     if (index !== undefined) store.state.items[index].actionsAreVisible = false;
   },
 
+  setNewPos(itemGroup) {
+    const index = store.state.items.findIndex(x => x.name === itemGroup.attrs.name);
+    store.state.items[index].x = itemGroup.attrs.x;
+    store.state.items[index].y = itemGroup.attrs.y;
+  },
+
   removeItem(itemName) {
     const index = store.state.items.findIndex(x => x.name === itemName);
     if (index !== undefined) store.state.items.splice(index, 1);
   },
 
+  removeAllItems() {
+    store.state.items.splice(0, store.state.items.length);
+  },
+
   load() {
+    this.removeAllItems();
+
     const data = localStorage.getItem('storage') || '[]';
-    this.state.items = JSON.parse(data);
+    let fetchedArray = JSON.parse(data);
+
+    console.log('LOAD fetchedArray', fetchedArray);
+    for (let i = 0; i < fetchedArray.length; i++) {
+      store.addItem(fetchedArray[i]);
+    }
   },
 
   save() {
-    localStorage.setItem('storage', JSON.stringify(this.state.items));
+    let storedArray = [];
+    for (let i = 0; i < this.state.items.length; i++) {
+      storedArray[i] = {};
+      storedArray[i].spriteName = this.state.items[i].spriteName;
+      storedArray[i].x = this.state.items[i].x;
+      storedArray[i].y = this.state.items[i].y;
+    }
+    console.log('SAVE storedArray', storedArray);
+    localStorage.setItem('storage', JSON.stringify(storedArray));
   }
-
 
 };
