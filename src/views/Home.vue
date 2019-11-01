@@ -1,105 +1,134 @@
 <template>
-  <div class=" fixed top-0 right-0 bottom-0 left-0">
-    <div class=" absolute top-0 left-0 z-10">
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'sheetsSimpleJump', x: randomXPos(), y: randomYPos()})">Add Sheets</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'cubeSmall',        x: randomXPos(), y: randomYPos()})">Add cube</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'cubeBig',        x: randomXPos(), y: randomYPos()})">Add cube+</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="addItem({spriteName: 'wheel001',         x: randomXPos(), y: randomYPos()})">Add Wheel</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="animateAllSprites">Animate</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="reverseIndexes">Reverse z-indexes</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="save">Save</button>
-      <button class=" mr-5 p-2 bg-green-600" @click="load">Load</button>
+  <div class="fixed top-0 right-0 bottom-0 left-0 flex">
+    <div class="absolute top-0 left-0 bottom-0 z-10 flex flex-col justify-between bg-green-400">
+      <div class="flex flex-col items-center overflow-scroll">
+        <div draggable="true" @dragstart="btnDragStart">
+          <draggableButton
+            title="sheetsSimpleJump"
+            x="-300" y="-250"
+            width="130" height="160" />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart">
+          <draggableButton
+            title="cubeBig"
+            x="0" y="0"
+            width="300" height="250" />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart">
+          <draggableButton
+            title="cubeSmall"
+            x="0" y="-250"
+            width="150" height="130" />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart">
+          <draggableButton
+            title="wheel001"
+            x="0" y="-570"
+            width="70" height="100" />
+        </div>
+      </div>
+      <div class="flex flex-col items-stretch bg-green-500 p-2">
+        <button class=" mb-1 p-2 bg-yellow-600" @click="animateAllSprites">Animate</button>
+        <button class=" mb-1 p-2 bg-green-600" @click="save">Save</button>
+        <button class=" mb-1 p-2 bg-green-600" @click="load">Load</button>
+      </div>
     </div>
       <!--@mousedown="handleStageMouseDown"-->
-    <v-stage
-      ref="stage"
-      :config="stageSize"
+    <div
+      class="droptarget"
+      @dragover.prevent
+      @drop="dragDrop"
     >
-      <v-layer ref="layer">
+      <v-stage
+        ref="stage"
+        :config="stageSize"
+      >
+        <v-layer ref="layer">
 
-        <v-group
-          v-for="item in items"
-          @dragstart="handleDragStart"
-          @dragend="handleDragEnd"
-          :key="`group-${item.itemId}`"
-          :name=item.name
-          :itemId=item.itemId
-          :x=item.x
-          :y=item.y
-          ref="group"
-          type="group"
-          draggable="true"
-        >
-          <v-rect
-            :visible=item.actionsAreVisible
-            :config="{
-              x: 0,
-              y: 0,
-              width: item.sprite.width,
-              height: item.sprite.height,
-              fill: item.actionsAreVisible ? 'rgba(255,0,0,0.2)' : 'transparent'
-            }"
-          />
-          <v-sprite
-            @mouseover="handleMouseOver"
-            @mouseout="handleMouseOut"
-            :config="item.sprite"
-            ref="sprite"
-            type="sprite"
-            :draggable=false
-          />
-          <v-rect
-            :config="{
-              x: item.sprite.width -60,
-              y: -20,
-              width: 20,
-              height: 20,
+          <v-group
+            v-for="item in items"
+            @dragstart="handleDragStart"
+            @dragend="handleDragEnd"
+            :key="`group-${item.itemId}`"
+            :name=item.name
+            :itemId=item.itemId
+            :x=item.x
+            :y=item.y
+            ref="group"
+            type="group"
+            draggable="true"
+          >
+            <v-rect
+              :visible=item.actionsAreVisible
+              :config="{
+                x: 0,
+                y: 0,
+                width: item.sprite.width,
+                height: item.sprite.height,
+                fill: item.actionsAreVisible ? 'rgba(255,0,0,0.2)' : 'transparent'
+              }"
+            />
+            <v-sprite
+              @mouseover="handleMouseOver"
+              @mouseout="handleMouseOut"
+              :config="item.sprite"
+              ref="sprite"
+              type="sprite"
+              :draggable=false
+            />
+            <v-rect
+              :config="{
+                x: item.sprite.width -60,
+                y: -20,
+                width: 20,
+                height: 20,
 
-            }"
-          />
-          <v-rect
-            @click="pushItemUp"
-            @mouseover="handleMouseOver"
-            @mouseout="handleMouseOut"
-            :visible=item.actionsAreVisible
-            :config="{
-              x: item.sprite.width -60,
-              y: -20,
-              width: 20,
-              height: 20,
-              fill: '#22dd22'
-            }"
-          />
-          <v-rect
-            @click="pushItemDown"
-            @mouseover="handleMouseOver"
-            @mouseout="handleMouseOut"
-            :visible=item.actionsAreVisible
-            :config="{
-              x: item.sprite.width -40,
-              y: -20,
-              width: 20,
-              height: 20,
-              fill: '#11cc11'
-            }"
-          />
-          <v-rect
-            @click="removeItem"
-            @mouseover="handleMouseOver"
-            @mouseout="handleMouseOut"
-            :visible=item.actionsAreVisible
-            :config="{
-              x: item.sprite.width -20,
-              y: -20,
-              width: 20,
-              height: 20,
-              fill: 'red'}"
-          />
+              }"
+            />
+            <v-rect
+              @click="pushItemUp"
+              @mouseover="handleMouseOver"
+              @mouseout="handleMouseOut"
+              :visible=item.actionsAreVisible
+              :config="{
+                x: item.sprite.width -60,
+                y: -20,
+                width: 20,
+                height: 20,
+                fill: '#22dd22'
+              }"
+            />
+            <v-rect
+              @click="pushItemDown"
+              @mouseover="handleMouseOver"
+              @mouseout="handleMouseOut"
+              :visible=item.actionsAreVisible
+              :config="{
+                x: item.sprite.width -40,
+                y: -20,
+                width: 20,
+                height: 20,
+                fill: '#11cc11'
+              }"
+            />
+            <v-rect
+              @click="removeItem"
+              @mouseover="handleMouseOver"
+              @mouseout="handleMouseOut"
+              :visible=item.actionsAreVisible
+              :config="{
+                x: item.sprite.width -20,
+                y: -20,
+                width: 20,
+                height: 20,
+                fill: 'red'}"
+            />
 
-        </v-group>
+          </v-group>
 
-      </v-layer>
-    </v-stage>
+        </v-layer>
+      </v-stage>
+    </div>
   </div>
 </template>
 
@@ -109,9 +138,15 @@ const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
 const image = new window.Image();
 
+
 import { store } from "../Store.js";
+import DraggableButton from "@/components/DraggableButton.vue";
 
 export default {
+  components: {
+    DraggableButton
+  },
+
   data() {
     return {
       stageSize: {
@@ -126,6 +161,22 @@ export default {
   },
 
   methods: {
+    btnDragStart: function(e) {
+      console.log('START', e)
+      this.draggedButton = e.target.children[0]
+    },
+
+    dragEnd: function(e) {
+
+    },
+
+    dragDrop: function(e) {
+      let xpos= e.x - this.draggedButton.getAttribute('width')/2
+      let ypos= e.y - this.draggedButton.getAttribute('height')/2
+      this.addItem({spriteName: this.draggedButton.title, x: xpos, y: ypos})
+      this.draggedButton = undefined
+    },
+
     save(){
       store.save();
     },
