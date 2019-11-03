@@ -2,25 +2,25 @@
   <div class="fixed top-0 right-0 bottom-0 left-0 flex">
     <div class="absolute top-0 left-0 bottom-0 z-10 flex flex-col justify-between bg-green-400">
       <div class="flex flex-col items-center overflow-scroll">
-        <div draggable="true" @dragstart="btnDragStart">
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="sheetsSimpleJump"
             x="-300" y="-250"
             width="130" height="160" />
         </div>
-        <div draggable="true" @dragstart="btnDragStart">
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="cubeBig"
             x="0" y="0"
             width="300" height="250" />
         </div>
-        <div draggable="true" @dragstart="btnDragStart">
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="cubeSmall"
             x="0" y="-250"
             width="150" height="130" />
         </div>
-        <div draggable="true" @dragstart="btnDragStart">
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="wheel001"
             x="0" y="-570"
@@ -163,7 +163,10 @@ export default {
   methods: {
     btnDragStart: function(e) {
       console.log('START', e)
-      this.draggedButton = e.target.children[0]
+
+       e.dataTransfer.setData("offsetX", e.offsetX)
+       e.dataTransfer.setData("offsetY", e.offsetY)
+       e.dataTransfer.setData("title", e.target.children[0].title)
     },
 
     dragEnd: function(e) {
@@ -171,10 +174,9 @@ export default {
     },
 
     dragDrop: function(e) {
-      let xpos= e.x - this.draggedButton.getAttribute('width')/2
-      let ypos= e.y - this.draggedButton.getAttribute('height')/2
-      this.addItem({spriteName: this.draggedButton.title, x: xpos, y: ypos})
-      this.draggedButton = undefined
+      let xpos= e.x  - e.dataTransfer.getData("offsetX")
+      let ypos= e.y  - e.dataTransfer.getData("offsetY")
+      this.addItem({spriteName: e.dataTransfer.getData("title"), x: xpos, y: ypos})
     },
 
     save(){

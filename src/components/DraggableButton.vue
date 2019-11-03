@@ -4,7 +4,7 @@
     :title=this.title
     :width=this.width
     :height=this.height
-    class="draggable m-2 mx-4"
+    class="draggable"
  />
 </template>
 
