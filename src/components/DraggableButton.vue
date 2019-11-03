@@ -59,4 +59,10 @@ export default {
     background-color: transparent;
     background-image: url("./../assets/sprites/cric-test.png");
   }
+
+  .draggable:focus {
+    outline: none;
+    opacity: 0.6;
+  }
+
 </style>

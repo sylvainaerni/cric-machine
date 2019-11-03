@@ -162,9 +162,7 @@ export default {
 
   methods: {
     btnDragStart: function(e) {
-      console.log('START', e)
-
-       e.dataTransfer.setData("offsetX", e.offsetX)
+      e.dataTransfer.setData("offsetX", e.offsetX)
        e.dataTransfer.setData("offsetY", e.offsetY)
        e.dataTransfer.setData("title", e.target.children[0].title)
     },
@@ -177,6 +175,7 @@ export default {
       let xpos= e.x  - e.dataTransfer.getData("offsetX")
       let ypos= e.y  - e.dataTransfer.getData("offsetY")
       this.addItem({spriteName: e.dataTransfer.getData("title"), x: xpos, y: ypos})
+      document.activeElement.blur() // remove focused element
     },
 
     save(){
