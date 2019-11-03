@@ -1,0 +1,25 @@
+// Created with TexturePacker (http://www.codeandweb.com/texturepacker)
+//
+// Sprite sheet: {{ texture.fullName }} ({{ texture.size.width }} x {{ texture.size.height }})
+//
+// {{ smartUpdateKey }}
+
+sprites = [
+{% for sprite in allSprites %}
+    {{ sprite.trimmedName }} = [
+        frame = [
+            {{ sprite.frameRect.x }},
+            {{ sprite.frameRect.y }},
+            {{ sprite.frameRect.width }},
+            {{ sprite.frameRect.height }}
+        ],
+        rotated = {{ sprite.rotated }},
+        source = [
+            {{ sprite.cornerOffset.x }},
+            {{ sprite.cornerOffset.y }},
+            {{ sprite.untrimmedSize.width }},
+            {{ sprite.untrimmedSize.height }}
+        ]
+    ] {% if not forloop.last %}, {% endif %}
+{% endfor %}
+]

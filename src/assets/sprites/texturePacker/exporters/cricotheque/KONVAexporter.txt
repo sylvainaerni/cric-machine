@@ -1,0 +1,23 @@
+<!--
+// Sprite sheet: {{ texture.fullName }} ({{ texture.size.width }} x {{ texture.size.height }})
+-->
+
+const spriteLibrary = {
+{% for sprite in allSprites %}
+    {{ sprite.trimmedName }}: {
+    image: null,
+    width: {{ sprite.frameRect.width }},
+    height: {{ sprite.frameRect.height }},
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        {{ sprite.frameRect.x }}, {{ sprite.frameRect.y }}, {{ sprite.frameRect.width }}, {{ sprite.frameRect.height }},
+      ]
+    }
+  }
+{% endfor %}
+}
