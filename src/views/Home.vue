@@ -162,6 +162,7 @@ export default {
       sprite: {
         image: image
       },
+      sprites: ["cubeBig", "cubeSmall", "sheetsSimpleJump", "wheel001"],
       items: store.state.items
     };
   },
@@ -260,11 +261,9 @@ export default {
     // otherwise it doen't draw when a new item is added.
     // TO DO: remove these four lines without breaking everything...
 
-    this.addItem({ spriteName: "cubeBig", x: -10000, y: 0 });
-    this.addItem({ spriteName: "cubeSmall", x: -10000, y: 0 });
-    this.addItem({ spriteName: "sheetsSimpleJump", x: -10000, y: 0 });
-    this.addItem({ spriteName: "wheel001", x: -10000, y: 0 });
-
+    this.sprites.forEach(sprite => {
+      this.addItem({ spriteName: sprite, x: -10000, y: 0 });
+    });
     // this.addItem({spriteName: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
