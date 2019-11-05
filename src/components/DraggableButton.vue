@@ -4,7 +4,7 @@
     :title="this.title"
     :width="this.width"
     :height="this.height"
-    class="draggable"
+    class="draggable cursor-grab cursor-grabbing bg-transparent focus:outline-none focus:opacity-50"
   />
 </template>
 
@@ -57,14 +57,6 @@ export default {
 
 <style lang="css">
 .draggable {
-  cursor: grab;
-  cursor: grabbing;
-  background-color: transparent;
   background-image: url("./../assets/sprites/cric-test.png");
-}
-
-.draggable:focus {
-  outline: none;
-  opacity: 0.6;
 }
 </style>

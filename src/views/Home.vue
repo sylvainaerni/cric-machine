@@ -283,7 +283,7 @@ export default {
 
 <style lang="postcss">
 body {
-  background-color: #ccb786;
+  @apply bg-sylvainFancyBrown;
   background-image: url("https://www.transparenttextures.com/patterns/black-paper.png");
 }
 /* .actions {
