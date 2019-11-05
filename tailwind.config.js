@@ -14,7 +14,7 @@ module.exports = {
 
       black: "#000",
       white: "#fff",
-
+      sylvainFancyBrown: "#ccb786",
       gray: {
         100: "#f7fafc",
         200: "#edf2f7",
@@ -200,6 +200,8 @@ module.exports = {
     cursor: {
       auto: "auto",
       default: "default",
+      grab: "grab",
+      grabbing: "grabbing",
       pointer: "pointer",
       wait: "wait",
       text: "text",
@@ -456,7 +458,6 @@ module.exports = {
     lineHeight: ["responsive"],
     listStylePosition: ["responsive"],
     listStyleType: ["responsive"],
-    margin: ["responsive"],
     maxHeight: ["responsive"],
     maxWidth: ["responsive"],
     minHeight: ["responsive"],

@@ -1,16 +1,16 @@
 <template>
   <button
     :style="computedStyles"
-    :title=this.title
-    :width=this.width
-    :height=this.height
-    class="draggable"
- />
+    :title="this.title"
+    :width="this.width"
+    :height="this.height"
+    class="draggable cursor-grab cursor-grabbing bg-transparent focus:outline-none focus:opacity-50"
+  />
 </template>
 
 <script>
 export default {
-  name: 'DraggableButton',
+  name: "DraggableButton",
 
   props: {
     title: {
@@ -20,21 +20,25 @@ export default {
 
     x: {
       type: String,
+      default: "0",
       required: true
     },
 
     y: {
       type: String,
+      default: "0",
       required: true
     },
 
     width: {
       type: String,
+      default: "0",
       required: true
     },
 
     height: {
       type: String,
+      default: "0",
       required: true
     }
   },
@@ -42,27 +46,17 @@ export default {
   computed: {
     computedStyles() {
       return {
-        'background-position': this.x + 'px ' +this.y + 'px',
-        'width': this.width + 'px',
-        'height': this.height + 'px'
-      }
+        "background-position": this.x + "px " + this.y + "px",
+        width: this.width + "px",
+        height: this.height + "px"
+      };
     }
   }
-}
+};
 </script>
 
-
 <style lang="css">
-  .draggable {
-    cursor: grab;
-    cursor: grabbing;
-    background-color: transparent;
-    background-image: url("./../assets/sprites/cric-test.png");
-  }
-
-  .draggable:focus {
-    outline: none;
-    opacity: 0.6;
-  }
-
+.draggable {
+  background-image: url("./../assets/sprites/cric-test.png");
+}
 </style>
