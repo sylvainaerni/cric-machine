@@ -20,21 +20,25 @@ export default {
 
     x: {
       type: String,
+      default: "0",
       required: true
     },
 
     y: {
       type: String,
+      default: "0",
       required: true
     },
 
     width: {
       type: String,
+      default: "0",
       required: true
     },
 
     height: {
       type: String,
+      default: "0",
       required: true
     }
   },
