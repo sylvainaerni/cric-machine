@@ -167,7 +167,7 @@ export default {
   },
 
   methods: {
-    btnDragStart: function({ dataTransfer, offsetX, offsetY, target }) {
+    btnDragStart: function({ dataTransfer, offsetX = 0, offsetY = 0, target }) {
       dataTransfer.setData("offsetX", offsetX);
       dataTransfer.setData("offsetY", offsetY);
       dataTransfer.setData("title", target.firstElementChild.title);
@@ -175,11 +175,11 @@ export default {
 
     dragEnd: function() {},
 
-    dragDrop: function(e) {
-      let xpos = e.x - e.dataTransfer.getData("offsetX");
-      let ypos = e.y - e.dataTransfer.getData("offsetY");
+    dragDrop: function({ dataTransfer, x = 0, y = 0 }) {
+      let xpos = x - dataTransfer.getData("offsetX");
+      let ypos = y - dataTransfer.getData("offsetY");
       this.addItem({
-        spriteName: e.dataTransfer.getData("title"),
+        spriteName: dataTransfer.getData("title"),
         x: xpos,
         y: ypos
       });
