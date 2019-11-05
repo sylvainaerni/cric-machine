@@ -1,16 +1,16 @@
 <template>
   <button
     :style="computedStyles"
-    :title=this.title
-    :width=this.width
-    :height=this.height
+    :title="this.title"
+    :width="this.width"
+    :height="this.height"
     class="draggable"
- />
+  />
 </template>
 
 <script>
 export default {
-  name: 'DraggableButton',
+  name: "DraggableButton",
 
   props: {
     title: {
@@ -42,27 +42,25 @@ export default {
   computed: {
     computedStyles() {
       return {
-        'background-position': this.x + 'px ' +this.y + 'px',
-        'width': this.width + 'px',
-        'height': this.height + 'px'
-      }
+        "background-position": this.x + "px " + this.y + "px",
+        width: this.width + "px",
+        height: this.height + "px"
+      };
     }
   }
-}
+};
 </script>
 
-
 <style lang="css">
-  .draggable {
-    cursor: grab;
-    cursor: grabbing;
-    background-color: transparent;
-    background-image: url("./../assets/sprites/cric-test.png");
-  }
+.draggable {
+  cursor: grab;
+  cursor: grabbing;
+  background-color: transparent;
+  background-image: url("./../assets/sprites/cric-test.png");
+}
 
-  .draggable:focus {
-    outline: none;
-    opacity: 0.6;
-  }
-
+.draggable:focus {
+  outline: none;
+  opacity: 0.6;
+}
 </style>
