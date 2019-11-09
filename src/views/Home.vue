@@ -42,9 +42,8 @@
         </div>
       </div>
       <div class="flex flex-col items-stretch bg-green-500 p-2">
-        <button class=" mb-1 p-2 bg-yellow-600" @click="animateAllSprites">
-          Animate
-        </button>
+        <button class=" mb-1 p-2 bg-yellow-600" @click="updateAnimations">Update animations</button>
+        <button class=" mb-1 p-2 bg-yellow-600" @click="animateAllSprites">Animate</button>
         <button class=" mb-1 p-2 bg-green-600" @click="save">Save</button>
         <button class=" mb-1 p-2 bg-green-600" @click="load">Load</button>
       </div>
@@ -52,7 +51,7 @@
     <!--@mousedown="handleStageMouseDown"-->
     <div class="droptarget" @dragover.prevent @drop="dragDrop">
       <v-stage ref="stage" :config="stageSize">
-        <v-layer ref="layer">
+        <v-layer ref="layer" :key="layerKey">
           <v-group
             v-for="item in items"
             @dragstart="handleDragStart"
@@ -159,6 +158,7 @@ export default {
         width: StageWidth,
         height: StageHeight
       },
+      layerKey: 0,
       sprite: {
         image: image
       },
@@ -193,10 +193,12 @@ export default {
 
     load() {
       store.load();
+      this.updateAnimations();
     },
 
     addItem(animationParam) {
       store.addItem(animationParam);
+      this.updateAnimations();
     },
 
     removeItem(e) {
@@ -222,14 +224,7 @@ export default {
     handleDragStart(e) {},
 
     handleDragEnd(e) {
-      console.log("e.target.parent.attrs.name", e.target);
       store.setNewPos(e.target);
-    },
-
-    reverseIndexes() {
-      // just a test
-      store.state.items.reverse();
-      return;
     },
 
     randomXPos: function() {
@@ -241,8 +236,6 @@ export default {
     },
 
     animateAllSprites() {
-      // animate sprite contained in items when they are added to the stage
-      console.log("animateAllSprites", this.$refs);
       if (!this.$refs.group) return;
       for (let i = 0; i < this.$refs.group.length; i++) {
         this.$refs.group[i].$children[1].getNode().start();
@@ -253,30 +246,21 @@ export default {
       for (let i = 0; i < store.state.items.length; i++) {
         store.state.items[i].sprite.image = image;
       }
+    },
+
+    updateAnimations() {
+      image.src = require(`@/assets/sprites/cric-test.png`);
+      image.onload = () => {
+        this.reloadAllImages();
+        this.animateAllSprites();
+      };
     }
   },
 
-  beforeMount() {
-    // at the moment, we must `addItem` here all the shapes manually,
-    // otherwise it doen't draw when a new item is added.
-    // TO DO: remove these four lines without breaking everything...
-
-    this.sprites.forEach(sprite => {
-      this.addItem({ spriteName: sprite, x: -10000, y: 0 });
-    });
-    // this.addItem({spriteName: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
-    // this.addItem({spriteName: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
-    // this.addItem({spriteName: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
-    // this.addItem({spriteName: 'wheel001',         x: this.randomXPos(), y: this.randomYPos()});
-  },
+  beforeMount() {},
 
   mounted() {
-    image.src = require(`@/assets/sprites/cric-test.png`);
-    image.onload = () => {
-      this.reloadAllImages();
-      this.animateAllSprites();
-      console.log("IMAGE IS LOADED");
-    };
+    this.updateAnimations();
   }
 };
 </script>
