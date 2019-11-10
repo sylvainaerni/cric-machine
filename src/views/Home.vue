@@ -6,6 +6,24 @@
       <div class="flex flex-col items-center overflow-scroll">
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
+            title="bouton7"
+            x="-300"
+            y="-250"
+            width="130"
+            height="160"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton6"
+            x="-300"
+            y="-250"
+            width="130"
+            height="160"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
             title="sheetsSimpleJump"
             x="-300"
             y="-250"
@@ -51,7 +69,7 @@
     <!--@mousedown="handleStageMouseDown"-->
     <div class="droptarget" @dragover.prevent @drop="dragDrop">
       <v-stage ref="stage" :config="stageSize">
-        <v-layer ref="layer" :key="layerKey">
+        <v-layer ref="layer">
           <v-group
             v-for="item in items"
             @dragstart="handleDragStart"
@@ -198,7 +216,8 @@
 <script>
 const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
-const image = new window.Image();
+const imageTest = new window.Image();
+const imageButtons = new window.Image();
 
 import { store } from "../Store.js";
 import DraggableButton from "@/components/DraggableButton.vue";
@@ -213,10 +232,6 @@ export default {
       stageSize: {
         width: StageWidth,
         height: StageHeight
-      },
-      layerKey: 0,
-      sprite: {
-        image: image
       },
       items: store.state.items
     };
@@ -305,13 +320,25 @@ export default {
 
     reloadAllImages: function() {
       for (let i = 0; i < store.state.items.length; i++) {
-        store.state.items[i].sprite.image = image;
+        switch(store.state.items[i].sprite.imageName) {
+        case 'imageButtons':
+          store.state.items[i].sprite.image = imageButtons;
+          break;
+        case 'imageTest':
+          store.state.items[i].sprite.image = imageTest;
+          break;
+        }
       }
     },
 
     updateAnimations() {
-      image.src = require(`@/assets/sprites/cric-test.png`);
-      image.onload = () => {
+      imageTest.src = require(`@/assets/sprites/cric-test.png`);
+      imageTest.onload = () => {
+        this.reloadAllImages();
+        this.animateAllSprites();
+      };
+      imageButtons.src = require(`@/assets/sprites/buttons-test.png`);
+      imageButtons.onload = () => {
         this.reloadAllImages();
         this.animateAllSprites();
       };

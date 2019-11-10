@@ -1,142 +1,386 @@
 <!--
-// Sprite sheet: boutons.png (965 x 1809)
+// Sprite sheet: boutons.png (512 x 512)
 -->
 
 const spriteLibrary = {
 
-    bouton7: {
-      image: null,
-      width: 240,
-      height: 160,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          724, 1487, 240, 160,
-          724, 1165, 240, 160,
-        ]
-      }
-    },
-
-    bouton6 : {
-      image: null,
-      width: 240,
-      height: 160,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          1, 1648, 240, 160,
-          242, 1326, 240, 160,
-          1, 1326, 240, 160,
-          242, 1165, 240, 160,
-          1, 1165, 240, 160,
-          483, 964, 240, 160,
-          724, 964, 240, 160,
-          483, 1165, 240, 160,
-          483, 1326, 240, 160,
-          1, 1648, 240, 160,
-          483, 1648, 240, 160
-        ]
-      }
-    },
-
-    bouton05: {
-      image: null,
-      width: 320,
-      height: 240,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          322, 643, 320, 240,
-          643, 643, 320, 240,
-        ]
-      }
-    },
-
-      bouton04: {
-      image: null,
-      width: 240,
-      height: 160,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          483, 1487, 240, 160,
-          1, 1487, 240, 160,
-          724, 1326, 240, 160,
-        ]
-      }
-    },
-
-    bouton03: {
-      image: null,
-      width: 240,
-      height: 200,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          242, 964, 240, 200,
-          1, 964, 240, 200
-        ]
-      }
-    },
-
-    bouton02: {
-      image: null,
-      width: 240,
-      height: 160,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          242, 1487, 240, 160,
-          242, 1648, 240, 160
-        ]
-      }
-    },
-
     bouton01: {
-      image: null,
-      width: 320,
-      height: 320,
-      fill: 'transparent',
-      animation: 'vibrato',
-      frameRate: 10,
-      frameIndex: 1,
-      animations: {
-        vibrato: [
-          // x, y, width, height
-          1, 1, 320, 320,
-          322, 322, 320, 320,
-          322, 1, 320, 320,
-          643, 1, 320, 320,
-          1, 322, 320, 320,
-          643, 1, 320, 320,
-          1, 643, 320, 320,
-          322, 322, 320, 320,
-          643, 322, 320, 320
+    image: null,
+    width: 121,
+    height: 134,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+          1,1,121,134,
+          1, 1, 121, 134,
+          123, 1, 111, 129,
+          235, 1, 118, 131,
+          354, 1, 121, 128,
+          1, 136, 118, 131,
+          354, 1, 121, 128,
+          120, 136, 121, 134,
+          123, 1, 111, 129,
+          242, 136, 118, 131
         ]
       }
+
+
+
+        ,
+
+        bouton02/bouton02_001: {
+    image: null,
+    width: 43,
+    height: 72,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        361, 136, 43, 72,
+      ]
     }
+  }
+
+    bouton02/bouton02_002: {
+    image: null,
+    width: 42,
+    height: 72,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        405, 136, 42, 72,
+      ]
+    }
+  }
+
+    bouton03/bouton03_001: {
+    image: null,
+    width: 63,
+    height: 84,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        448, 136, 63, 84,
+      ]
+    }
+  }
+
+    bouton03/bouton03_002: {
+    image: null,
+    width: 68,
+    height: 87,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        1, 271, 68, 87,
+      ]
+    }
+  }
+
+    bouton04/bouton04_001: {
+    image: null,
+    width: 39,
+    height: 24,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        70, 271, 39, 24,
+      ]
+    }
+  }
+
+    bouton04/bouton04_002: {
+    image: null,
+    width: 39,
+    height: 24,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        110, 271, 39, 24,
+      ]
+    }
+  }
+
+    bouton04/bouton04_003: {
+    image: null,
+    width: 37,
+    height: 24,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        150, 271, 37, 24,
+      ]
+    }
+  }
+
+    bouton05/bouton05_001: {
+    image: null,
+    width: 148,
+    height: 101,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        188, 271, 148, 101,
+      ]
+    }
+  }
+
+    bouton05/bouton05_002: {
+    image: null,
+    width: 142,
+    height: 105,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        337, 271, 142, 105,
+      ]
+    }
+  }
+
+    bouton06/bouton06_001: {
+    image: null,
+    width: 36,
+    height: 42,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        1, 377, 36, 42,
+      ]
+    }
+  }
+
+    bouton06/bouton06_002: {
+    image: null,
+    width: 41,
+    height: 66,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        38, 377, 41, 66,
+      ]
+    }
+  }
+
+    bouton06/bouton06_003: {
+    image: null,
+    width: 64,
+    height: 66,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        80, 377, 64, 66,
+      ]
+    }
+  }
+
+    bouton06/bouton06_004: {
+    image: null,
+    width: 77,
+    height: 61,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        145, 377, 77, 61,
+      ]
+    }
+  }
+
+    bouton06/bouton06_005: {
+    image: null,
+    width: 71,
+    height: 60,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        223, 377, 71, 60,
+      ]
+    }
+  }
+
+    bouton06/bouton06_006: {
+    image: null,
+    width: 64,
+    height: 61,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        295, 377, 64, 61,
+      ]
+    }
+  }
+
+    bouton06/bouton06_007: {
+    image: null,
+    width: 76,
+    height: 61,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        360, 377, 76, 61,
+      ]
+    }
+  }
+
+    bouton06/bouton06_008: {
+    image: null,
+    width: 72,
+    height: 62,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        437, 377, 72, 62,
+      ]
+    }
+  }
+
+    bouton06/bouton06_009: {
+    image: null,
+    width: 76,
+    height: 61,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        1, 444, 76, 61,
+      ]
+    }
+  }
+
+    bouton06/bouton06_010: {
+    image: null,
+    width: 64,
+    height: 61,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        78, 444, 64, 61,
+      ]
+    }
+  }
+
+    bouton06/bouton06_011: {
+    image: null,
+    width: 41,
+    height: 66,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        38, 377, 41, 66,
+      ]
+    }
+  }
+
+    bouton07/bouton07_001: {
+    image: null,
+    width: 28,
+    height: 37,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        143, 444, 28, 37,
+      ]
+    }
+  }
+
+    bouton07/bouton07_002: {
+    image: null,
+    width: 27,
+    height: 37,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        172, 444, 27, 37,
+      ]
+    }
+  }
+
 }

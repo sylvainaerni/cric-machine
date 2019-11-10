@@ -1,7 +1,54 @@
 
 const spriteLibrary = {
+
+  bouton7: {
+    image: null,
+    imageName: 'imageButtons',
+    width: 240,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        724, 1487, 240, 160,
+        724, 1165, 240, 160,
+      ]
+    }
+  },
+
+  bouton6: {
+    image: null,
+    imageName: 'imageButtons',
+    width: 240,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        1, 1648, 240, 160,
+        242, 1326, 240, 160,
+        1, 1326, 240, 160,
+        242, 1165, 240, 160,
+        1, 1165, 240, 160,
+        483, 964, 240, 160,
+        724, 964, 240, 160,
+        483, 1165, 240, 160,
+        483, 1326, 240, 160,
+        1, 1648, 240, 160,
+        483, 1648, 240, 160
+      ]
+    }
+  },
+
   sheetsSimpleJump: {
     image: null,
+    imageName: 'imageTest',
     width: 130,
     height: 160,
     fill: 'transparent',
@@ -28,6 +75,7 @@ const spriteLibrary = {
   },
   cubeBig: {
     image: null,
+    imageName: 'imageTest',
     width: 300,
     height: 250,
     fill: 'transparent',
@@ -44,6 +92,7 @@ const spriteLibrary = {
   },
   cubeSmall: {
     image: null,
+    imageName: 'imageTest',
     width: 150,
     height: 130,
     fill: 'transparent',
@@ -60,6 +109,7 @@ const spriteLibrary = {
   },
   wheel001: {
     image: null,
+    imageName: 'imageTest',
     width: 70,
     height: 100,
     fill: 'transparent',
