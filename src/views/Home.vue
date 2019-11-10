@@ -93,7 +93,8 @@
                 height: 20
               }"
             />
-            <v-rect
+
+            <v-group
               @click="pushItemUp"
               @mouseover="handleMouseOver"
               @mouseout="handleMouseOut"
@@ -102,11 +103,25 @@
                 x: item.sprite.width - 60,
                 y: -20,
                 width: 20,
-                height: 20,
-                fill: '#22dd22'
+                height: 20
               }"
-            />
-            <v-rect
+            >
+              <v-rect :config="{
+                  width: 20,
+                  height: 20,
+                  fill: '#11cc11'
+                }"
+              />
+              <v-line :config="{
+                x: 3,
+                y: 6,
+                points: [0, 6, 6, 0, 12, 6],
+                tension: 0,
+                closed: true,
+                fill: 'white'
+              }"/>
+            </v-group>
+            <v-group
               @click="pushItemDown"
               @mouseover="handleMouseOver"
               @mouseout="handleMouseOut"
@@ -116,22 +131,63 @@
                 y: -20,
                 width: 20,
                 height: 20,
-                fill: '#11cc11'
               }"
-            />
-            <v-rect
+            >
+              <v-rect
+                :config="{
+                  width: 20,
+                  height: 20,
+                  fill: 'orange'
+                }"
+              />
+              <v-line :config="{
+                x: 3,
+                y: 6,
+                points: [0, 0, 6, 7, 12, 0],
+                tension: 0,
+                closed: true,
+                fill: 'white'
+              }"/>
+            </v-group>
+
+            <v-group
               @click="removeItem"
-              @mouseover="handleMouseOver"
-              @mouseout="handleMouseOut"
-              :visible="item.actionsAreVisible"
-              :config="{
-                x: item.sprite.width - 20,
-                y: -20,
-                width: 20,
-                height: 20,
-                fill: 'red'
-              }"
-            />
+                @mouseover="handleMouseOver"
+                @mouseout="handleMouseOut"
+                :visible="item.actionsAreVisible"
+                :config="{
+                  x: item.sprite.width - 20,
+                  y: -20
+                }"
+              >
+              <v-rect
+                :config="{
+                  width: 20,
+                  height: 20,
+                  fill: 'red'
+                }"
+              />
+              <v-rect
+                :config="{
+                  x: 3,
+                  y:6,
+                  rotation:-45,
+                  width: 3,
+                  height: 15,
+                  fill: 'white'
+                }"
+              />
+              <v-rect
+                :config="{
+                  x: 14,
+                  y:4,
+                  rotation:45,
+                  width: 3,
+                  height: 15,
+                  fill: 'white'
+                }"
+              />
+            </v-group>
           </v-group>
         </v-layer>
       </v-stage>
@@ -201,23 +257,29 @@ export default {
     },
 
     removeItem(e) {
-      store.removeItem(e.target.parent.attrs.name);
+      store.removeItem(e.target.parent.parent.attrs.name);
     },
 
     pushItemUp(e) {
-      store.pushItemUp(e.target.parent.attrs.name);
+      store.pushItemUp(e.target.parent.parent.attrs.name);
     },
 
     pushItemDown(e) {
-      store.pushItemDown(e.target.parent.attrs.name);
+      store.pushItemDown(e.target.parent.parent.attrs.name);
+    },
+
+    findEventParentName(e){
+      return e.target.parent.attrs.name ? e.target.parent.attrs.name : e.target.parent.parent.attrs.name
     },
 
     handleMouseOver(e) {
-      store.showActionItems(e.target.parent.attrs.name);
+      let name = this.findEventParentName(e);
+      store.showActionItems(name);
     },
 
     handleMouseOut(e) {
-      store.hideActionItems(e.target.parent.attrs.name);
+      let name = this.findEventParentName(e);
+      store.hideActionItems(name);
     },
 
     handleDragStart(e) {},

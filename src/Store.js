@@ -88,7 +88,6 @@ export const store = {
   },
 
   addItem(param) {
-    console.log('ADD ITEM param')
     let newItem = {
       name: 'group-' + itemId,
       itemId: itemId,
@@ -125,14 +124,12 @@ export const store = {
 
   pushItemUp(itemName) {
     const index = store.state.items.findIndex(x => x.name === itemName);
-    console.log('push the item up here', index)
     if (index < store.state.items.length - 1)
       this.moveItem(store.state.items, index, index + 1)
   },
 
   pushItemDown(itemName) {
     const index = store.state.items.findIndex(x => x.name === itemName);
-    console.log('push the item down here', index)
     if (index > 0)
       this.moveItem(store.state.items, index, index - 1);
   },
@@ -168,7 +165,6 @@ export const store = {
       storedArray[i].x = this.state.items[i].x;
       storedArray[i].y = this.state.items[i].y;
     }
-    console.log('SAVE storedArray', storedArray);
     localStorage.setItem('storage', JSON.stringify(storedArray));
   }
 
