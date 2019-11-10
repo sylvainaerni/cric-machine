@@ -6,25 +6,19 @@
       <div class="flex flex-col items-center overflow-scroll">
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
-            title="bouton7"
-            x="-300"
-            y="-250"
-            width="130"
-            height="160"
+            title="bouton1"
+            sprite="boutons"
+            x="1"
+            y="1"
+            width="120"
+            height="130"
           />
         </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton6"
-            x="-300"
-            y="-250"
-            width="130"
-            height="160"
-          />
-        </div>
+
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="sheetsSimpleJump"
+            sprite="cric-test"
             x="-300"
             y="-250"
             width="130"
@@ -34,6 +28,7 @@
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="cubeBig"
+            sprite="cric-test"
             x="0"
             y="0"
             width="300"
@@ -43,6 +38,7 @@
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="cubeSmall"
+            sprite="cric-test"
             x="0"
             y="-250"
             width="150"
@@ -52,6 +48,7 @@
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
             title="wheel001"
+            sprite="cric-test"
             x="0"
             y="-570"
             width="70"
@@ -216,8 +213,9 @@
 <script>
 const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
-const imageTest = new window.Image();
-const imageButtons = new window.Image();
+const images = {};
+      images.test = new window.Image();
+      images.buttons = new window.Image();
 
 import { store } from "../Store.js";
 import DraggableButton from "@/components/DraggableButton.vue";
@@ -322,23 +320,23 @@ export default {
       for (let i = 0; i < store.state.items.length; i++) {
         switch(store.state.items[i].sprite.imageName) {
         case 'imageButtons':
-          store.state.items[i].sprite.image = imageButtons;
+          store.state.items[i].sprite.image = images.buttons;
           break;
         case 'imageTest':
-          store.state.items[i].sprite.image = imageTest;
+          store.state.items[i].sprite.image = images.test;
           break;
         }
       }
     },
 
     updateAnimations() {
-      imageTest.src = require(`@/assets/sprites/cric-test.png`);
-      imageTest.onload = () => {
+      images.test.src = require(`@/assets/sprites/cric-test.png`);
+      images.test.onload = () => {
         this.reloadAllImages();
         this.animateAllSprites();
       };
-      imageButtons.src = require(`@/assets/sprites/buttons-test.png`);
-      imageButtons.onload = () => {
+      images.buttons.src = require(`@/assets/sprites/texturePacker/boutons.png`);
+      images.buttons.onload = () => {
         this.reloadAllImages();
         this.animateAllSprites();
       };

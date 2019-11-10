@@ -1,40 +1,13 @@
 <!--
-// Sprite sheet: boutons.png (512 x 512)
+// Sprite sheet: boutons.png (512 x 1024)
 -->
 
 const spriteLibrary = {
 
-    bouton01: {
+    bouton01/bouton01_001: {
     image: null,
-    width: 121,
-    height: 134,
-    fill: 'transparent',
-    animation: 'vibrato',
-    frameRate: 10,
-    frameIndex: 1,
-    animations: {
-      vibrato: [
-          1,1,121,134,
-          1, 1, 121, 134,
-          123, 1, 111, 129,
-          235, 1, 118, 131,
-          354, 1, 121, 128,
-          1, 136, 118, 131,
-          354, 1, 121, 128,
-          120, 136, 121, 134,
-          123, 1, 111, 129,
-          242, 136, 118, 131
-        ]
-      }
-
-
-
-        ,
-
-        bouton02/bouton02_001: {
-    image: null,
-    width: 43,
-    height: 72,
+    width: 160,
+    height: 160,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -42,15 +15,159 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        361, 136, 43, 72,
+        0, 0, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_002: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        160, 0, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_003: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        320, 0, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_004: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        0, 160, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_027: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        160, 160, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_028: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        0, 160, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_029: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        320, 160, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_030: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        160, 0, 160, 160,
+      ]
+    }
+  }
+
+    bouton01/bouton01_031: {
+    image: null,
+    width: 160,
+    height: 160,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        0, 320, 160, 160,
+      ]
+    }
+  }
+
+    bouton02/bouton02_001: {
+    image: null,
+    width: 120,
+    height: 80,
+    fill: 'transparent',
+    animation: 'vibrato',
+    frameRate: 10,
+    frameIndex: 1,
+    animations: {
+      vibrato: [
+        // x, y, width, height
+        160, 320, 120, 80,
       ]
     }
   }
 
     bouton02/bouton02_002: {
     image: null,
-    width: 42,
-    height: 72,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -58,15 +175,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        405, 136, 42, 72,
+        280, 320, 120, 80,
       ]
     }
   }
 
     bouton03/bouton03_001: {
     image: null,
-    width: 63,
-    height: 84,
+    width: 120,
+    height: 100,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -74,15 +191,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        448, 136, 63, 84,
+        0, 480, 120, 100,
       ]
     }
   }
 
     bouton03/bouton03_002: {
     image: null,
-    width: 68,
-    height: 87,
+    width: 120,
+    height: 100,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -90,15 +207,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        1, 271, 68, 87,
+        120, 480, 120, 100,
       ]
     }
   }
 
     bouton04/bouton04_001: {
     image: null,
-    width: 39,
-    height: 24,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -106,15 +223,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        70, 271, 39, 24,
+        240, 480, 120, 80,
       ]
     }
   }
 
     bouton04/bouton04_002: {
     image: null,
-    width: 39,
-    height: 24,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -122,15 +239,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        110, 271, 39, 24,
+        360, 480, 120, 80,
       ]
     }
   }
 
     bouton04/bouton04_003: {
     image: null,
-    width: 37,
-    height: 24,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -138,15 +255,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        150, 271, 37, 24,
+        0, 580, 120, 80,
       ]
     }
   }
 
     bouton05/bouton05_001: {
     image: null,
-    width: 148,
-    height: 101,
+    width: 160,
+    height: 120,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -154,15 +271,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        188, 271, 148, 101,
+        120, 580, 160, 120,
       ]
     }
   }
 
     bouton05/bouton05_002: {
     image: null,
-    width: 142,
-    height: 105,
+    width: 160,
+    height: 120,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -170,15 +287,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        337, 271, 142, 105,
+        280, 580, 160, 120,
       ]
     }
   }
 
     bouton06/bouton06_001: {
     image: null,
-    width: 36,
-    height: 42,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -186,15 +303,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        1, 377, 36, 42,
+        0, 700, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_002: {
     image: null,
-    width: 41,
-    height: 66,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -202,15 +319,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        38, 377, 41, 66,
+        120, 700, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_003: {
     image: null,
-    width: 64,
-    height: 66,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -218,15 +335,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        80, 377, 64, 66,
+        240, 700, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_004: {
     image: null,
-    width: 77,
-    height: 61,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -234,15 +351,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        145, 377, 77, 61,
+        360, 700, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_005: {
     image: null,
-    width: 71,
-    height: 60,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -250,15 +367,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        223, 377, 71, 60,
+        0, 780, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_006: {
     image: null,
-    width: 64,
-    height: 61,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -266,15 +383,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        295, 377, 64, 61,
+        120, 780, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_007: {
     image: null,
-    width: 76,
-    height: 61,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -282,15 +399,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        360, 377, 76, 61,
+        240, 780, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_008: {
     image: null,
-    width: 72,
-    height: 62,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -298,15 +415,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        437, 377, 72, 62,
+        360, 780, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_009: {
     image: null,
-    width: 76,
-    height: 61,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -314,15 +431,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        1, 444, 76, 61,
+        0, 860, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_010: {
     image: null,
-    width: 64,
-    height: 61,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -330,15 +447,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        78, 444, 64, 61,
+        120, 860, 120, 80,
       ]
     }
   }
 
     bouton06/bouton06_011: {
     image: null,
-    width: 41,
-    height: 66,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -346,15 +463,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        38, 377, 41, 66,
+        120, 700, 120, 80,
       ]
     }
   }
 
     bouton07/bouton07_001: {
     image: null,
-    width: 28,
-    height: 37,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -362,15 +479,15 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        143, 444, 28, 37,
+        240, 860, 120, 80,
       ]
     }
   }
 
     bouton07/bouton07_002: {
     image: null,
-    width: 27,
-    height: 37,
+    width: 120,
+    height: 80,
     fill: 'transparent',
     animation: 'vibrato',
     frameRate: 10,
@@ -378,7 +495,7 @@ const spriteLibrary = {
     animations: {
       vibrato: [
         // x, y, width, height
-        172, 444, 27, 37,
+        360, 860, 120, 80,
       ]
     }
   }

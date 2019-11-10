@@ -2,6 +2,7 @@
   <button
     :style="computedStyles"
     :title="this.title"
+    :sprite="this.sprite"
     :width="this.width"
     :height="this.height"
     class="draggable cursor-grab cursor-grabbing bg-transparent focus:outline-none focus:opacity-50"
@@ -14,6 +15,11 @@ export default {
 
   props: {
     title: {
+      type: String,
+      required: true
+    },
+
+    sprite: {
       type: String,
       required: true
     },
@@ -47,6 +53,7 @@ export default {
     computedStyles() {
       return {
         "background-position": this.x + "px " + this.y + "px",
+        "background-image": "url('" + require(`@/assets/sprites/${this.sprite}.png`) ,
         width: this.width + "px",
         height: this.height + "px"
       };
@@ -56,7 +63,5 @@ export default {
 </script>
 
 <style lang="css">
-.draggable {
-  background-image: url("./../assets/sprites/cric-test.png");
-}
+
 </style>

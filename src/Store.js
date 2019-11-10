@@ -1,20 +1,25 @@
 
 const spriteLibrary = {
 
-  bouton7: {
+  bouton1: {
     image: null,
     imageName: 'imageButtons',
-    width: 240,
+    width: 160,
     height: 160,
     fill: 'transparent',
     animation: 'vibrato',
-    frameRate: 10,
+    frameRate: 6,
     frameIndex: 1,
     animations: {
       vibrato: [
-        // x, y, width, height
-        724, 1487, 240, 160,
-        724, 1165, 240, 160,
+        160, 0, 160, 160,
+        320, 0, 160, 160,
+        0, 160, 160, 160,
+        160, 160, 160, 160,
+        0, 160, 160, 160,
+        320, 160, 160, 160,
+        160, 0, 160, 160,
+        0, 320, 160, 160,
       ]
     }
   },
