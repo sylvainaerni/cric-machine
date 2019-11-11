@@ -6,12 +6,73 @@
       <div class="flex flex-col items-center overflow-scroll">
         <div draggable="true" @dragstart="btnDragStart" class="mx-3">
           <draggableButton
-            title="bouton1"
+            title="bouton01"
             sprite="boutons"
             x="1"
             y="1"
+            width="160"
+            height="160"
+          />
+        </div>
+
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton02"
+            sprite="boutons"
+            x="-160"
+            y="-320"
             width="120"
-            height="130"
+            height="80"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton03"
+            sprite="boutons"
+            x="0"
+            y="-480"
+            width="120"
+            height="100"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton04"
+            sprite="boutons"
+            x="-240"
+            y="-480"
+            width="120"
+            height="80"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton05"
+            sprite="boutons"
+            x="-120"
+            y="-580"
+            width="160"
+            height="120"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton06"
+            sprite="boutons"
+            x="0"
+            y="-700"
+            width="120"
+            height="80"
+          />
+        </div>
+        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
+          <draggableButton
+            title="bouton07"
+            sprite="boutons"
+            x="-240"
+            y="-860"
+            width="120"
+            height="80"
           />
         </div>
 
@@ -57,9 +118,7 @@
         </div>
       </div>
       <div class="flex flex-col items-stretch bg-green-500 p-2">
-        <button class=" mb-1 p-2 bg-yellow-600" @click="updateAnimations">Update animations</button>
-        <button class=" mb-1 p-2 bg-yellow-600" @click="animateAllSprites">Animate</button>
-        <button class=" mb-1 p-2 bg-green-600" @click="save">Save</button>
+        <button class=" mb-1 p-2 bg-yellow-600" @click="save">Save</button>
         <button class=" mb-1 p-2 bg-green-600" @click="load">Load</button>
       </div>
     </div>
