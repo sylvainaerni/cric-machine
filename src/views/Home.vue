@@ -1,125 +1,142 @@
 <template>
   <div class="fixed top-0 right-0 bottom-0 left-0 flex">
-    <div
-      class="absolute top-0 left-0 bottom-0 z-10 flex flex-col justify-between bg-green-400"
-    >
-      <div class="flex flex-col items-center overflow-scroll">
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton01"
-            sprite="boutons"
-            x="1"
-            y="1"
-            width="160"
-            height="160"
-          />
-        </div>
-
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton02"
-            sprite="boutons"
-            x="-160"
-            y="-320"
-            width="120"
-            height="80"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton03"
-            sprite="boutons"
-            x="0"
-            y="-480"
-            width="120"
-            height="100"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton04"
-            sprite="boutons"
-            x="-240"
-            y="-480"
-            width="120"
-            height="80"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton05"
-            sprite="boutons"
-            x="-120"
-            y="-580"
-            width="160"
-            height="120"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton06"
-            sprite="boutons"
-            x="0"
-            y="-700"
-            width="120"
-            height="80"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="bouton07"
-            sprite="boutons"
-            x="-240"
-            y="-860"
-            width="120"
-            height="80"
-          />
-        </div>
-
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="sheetsSimpleJump"
-            sprite="cric-test"
-            x="-300"
-            y="-250"
-            width="130"
-            height="160"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="cubeBig"
-            sprite="cric-test"
-            x="0"
-            y="0"
-            width="300"
-            height="250"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="cubeSmall"
-            sprite="cric-test"
-            x="0"
-            y="-250"
-            width="150"
-            height="130"
-          />
-        </div>
-        <div draggable="true" @dragstart="btnDragStart" class="mx-3">
-          <draggableButton
-            title="wheel001"
-            sprite="cric-test"
-            x="0"
-            y="-570"
-            width="70"
-            height="100"
-          />
-        </div>
+    <div class="flex absolute w-1/3 top-0 left-0 bottom-0 z-10">
+      <div class="bg-green-600">
+        <button class="tabs__item">Menu</button>
+        <tabs
+          :tabs="tabs"
+          :currentTab="currentTab"
+          :wrapper-class="'tabs'"
+          :tab-class="'tabs__item'"
+          :tab-active-class="'tabs__item_active'"
+          :line-class="'tabs__active-line'"
+          @onClick="handleTabClick"
+        />
       </div>
-      <div class="flex flex-col items-stretch bg-green-500 p-2">
-        <button class=" mb-1 p-2 bg-yellow-600" @click="save">Save</button>
-        <button class=" mb-1 p-2 bg-green-600" @click="load">Load</button>
+      <div
+        class="flex flex-col justify-between bg-green-400"
+      >
+        <div class="flex flex-col items-center overflow-scroll">
+
+          <div v-if="currentTab === 'tab-buttons'" class="flex flex-col items-center w-full">
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton01"
+                sprite="boutons"
+                x="1"
+                y="1"
+                width="160"
+                height="160"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton02"
+                sprite="boutons"
+                x="-160"
+                y="-320"
+                width="120"
+                height="80"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton03"
+                sprite="boutons"
+                x="0"
+                y="-480"
+                width="120"
+                height="100"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton04"
+                sprite="boutons"
+                x="-240"
+                y="-480"
+                width="120"
+                height="80"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton05"
+                sprite="boutons"
+                x="-120"
+                y="-580"
+                width="160"
+                height="120"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton06"
+                sprite="boutons"
+                x="0"
+                y="-700"
+                width="120"
+                height="80"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="bouton07"
+                sprite="boutons"
+                x="-240"
+                y="-860"
+                width="120"
+                height="80"
+              />
+            </div>
+          </div>
+          <div v-if="currentTab === 'tab-sheets'" class="flex flex-col items-center w-full">
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="sheetsSimpleJump"
+                sprite="cric-test"
+                x="-300"
+                y="-250"
+                width="130"
+                height="160"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="cubeBig"
+                sprite="cric-test"
+                x="0"
+                y="0"
+                width="300"
+                height="250"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="cubeSmall"
+                sprite="cric-test"
+                x="0"
+                y="-250"
+                width="150"
+                height="130"
+              />
+            </div>
+            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+              <draggableButton
+                title="wheel001"
+                sprite="cric-test"
+                x="0"
+                y="-570"
+                width="70"
+                height="100"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col items-stretch bg-green-500 p-2">
+          <button class=" mb-1 p-2 bg-yellow-600" @click="save">Save</button>
+          <button class=" mb-1 p-2 bg-green-600" @click="load">Load</button>
+        </div>
       </div>
     </div>
     <!--@mousedown="handleStageMouseDown"-->
@@ -277,10 +294,13 @@ const images = {};
       images.buttons = new window.Image();
 
 import { store } from "../Store.js";
+import Tabs from 'vue-tabs-with-active-line';
 import DraggableButton from "@/components/DraggableButton.vue";
+
 
 export default {
   components: {
+    Tabs,
     DraggableButton
   },
 
@@ -290,11 +310,22 @@ export default {
         width: StageWidth,
         height: StageHeight
       },
+      tabs: [{
+        title: 'Buttons',
+        value: 'tab-buttons',
+      }, {
+        title: 'Sheets',
+        value: 'tab-sheets',
+      }],
+      currentTab: 'tab-buttons',
       items: store.state.items
     };
   },
 
   methods: {
+    handleTabClick(newTab) {
+      this.currentTab = newTab;
+    },
     btnDragStart: function({ dataTransfer, offsetX = 0, offsetY = 0, target }) {
       dataTransfer.setData("offsetX", offsetX);
       dataTransfer.setData("offsetY", offsetY);
@@ -422,4 +453,37 @@ body {
     @apply bg-white text-red-300;
   }
 } */
+
+.tabs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-items: stretch;
+  @apply bg-green-600;
+}
+
+.tabs__item {
+  @apply cursor-pointer bg-green-500;
+  height: 50px;
+  width: 50px;
+  font-size: 12px;
+}
+
+.tabs__item_active {
+  @apply bg-green-400;
+}
+
+.tabs__item:hover {
+  @apply bg-green-700;
+}
+
+.tabs__item:focus {
+  @apply bg-green-800;
+}
+
+
+.tabs__active-line {
+  display: none;
+}
+
 </style>
