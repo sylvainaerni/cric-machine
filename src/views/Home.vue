@@ -2,8 +2,14 @@
   <div class="fixed top-0 right-0 bottom-0 left-0 flex">
     <div class="flex absolute w-1/3 top-0 left-0 bottom-0 z-10">
       <div class="bg-green-600">
-        <button class="tabs__item">Menu</button>
+        <button
+          class="tabs__item"
+          @click="toggleMenu"
+        >
+          Menu
+        </button>
         <tabs
+          v-if="menuIsOpen"
           :tabs="tabs"
           :currentTab="currentTab"
           :wrapper-class="'tabs'"
@@ -14,6 +20,7 @@
         />
       </div>
       <div
+        v-if="menuIsOpen"
         class="flex flex-col justify-between bg-green-400"
       >
         <div class="flex flex-col items-center overflow-scroll">
@@ -310,6 +317,7 @@ export default {
         width: StageWidth,
         height: StageHeight
       },
+      menuIsOpen: true,
       tabs: [{
         title: 'Buttons',
         value: 'tab-buttons',
@@ -323,6 +331,11 @@ export default {
   },
 
   methods: {
+
+    toggleMenu () {
+      this.menuIsOpen = !this.menuIsOpen
+    },
+
     handleTabClick(newTab) {
       this.currentTab = newTab;
     },
@@ -385,7 +398,7 @@ export default {
       store.hideActionItems(name);
     },
 
-    handleDragStart(e) {},
+    handleDragStart() {},
 
     handleDragEnd(e) {
       store.setNewPos(e.target);
