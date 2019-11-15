@@ -45,8 +45,21 @@
         <button class=" mb-1 p-2 bg-yellow-600" @click="animateAllSprites">
           Animate
         </button>
-        <button class=" mb-1 p-2 bg-green-600" @click="save">Save</button>
-        <button class=" mb-1 p-2 bg-green-600" @click="load">Load</button>
+        <button
+          class=" mb-1 p-2 bg-green-600"
+          @click="settingsActive = !settingsActive"
+        >
+          Settings
+        </button>
+        <div v-if="settingsActive">
+          <label>secret key: <input v-model="secretKey" type="text"/></label>
+        </div>
+        <button v-if="secretKey" class=" mb-1 p-2 bg-green-600" @click="save">
+          Save
+        </button>
+        <button v-if="secretKey" class=" mb-1 p-2 bg-green-600" @click="load">
+          Load
+        </button>
       </div>
     </div>
     <!--@mousedown="handleStageMouseDown"-->
@@ -159,6 +172,9 @@ export default {
         width: StageWidth,
         height: StageHeight
       },
+      settingsActive: false,
+      secretKey: localStorage.getItem("secretEnzymKey"),
+      binId: localStorage.getItem("encymBinId"),
       sprite: {
         image: image
       },
@@ -188,11 +204,14 @@ export default {
     },
 
     save() {
-      store.save();
+      store.save(this.secretKey);
     },
 
-    load() {
-      store.load();
+    async load() {
+      if (this.secretKey && this.binId) {
+        let savedData = await store.readJsBin();
+        this.items = savedData;
+      }
     },
 
     addItem(animationParam) {
@@ -270,7 +289,10 @@ export default {
     // this.addItem({spriteName: 'wheel001',         x: this.randomXPos(), y: this.randomYPos()});
   },
 
-  mounted() {
+  async mounted() {
+    this.secretKey = localStorage.getItem("secretEnzymKey") || null;
+    if (localStorage.getItem("secretEnzymKey")) {
+    }
     image.src = require(`@/assets/sprites/cric-test.png`);
     image.onload = () => {
       this.reloadAllImages();
