@@ -1,7 +1,12 @@
 <template>
-  <div class="fixed top-0 right-0 bottom-0 left-0 flex">
-    <div class="flex absolute w-1/3 top-0 left-0 bottom-0 z-10">
-      <div class="bg-green-600">
+  <div
+    class="view fixed top-0 right-0 bottom-0 left-0 flex"
+  >
+    <div
+      class="menu flex absolute w-1/3 top-0 bottom-0 z-10"
+      :class="this.menuIsPushed ? 'menu--is-pushed' : ''"
+    >
+      <div class="bg-green-600 relative z-20">
         <button
           class="tabs__item"
           @click="toggleMenu"
@@ -21,12 +26,18 @@
       </div>
       <div
         v-if="menuIsOpen"
-        class="flex flex-col justify-between bg-green-400"
+        class="flex flex-col justify-between bg-green-400 relative z-10"
+
       >
         <div class="flex flex-col items-center overflow-scroll">
 
           <div v-if="currentTab === 'tab-buttons'" class="flex flex-col items-center w-full">
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton01"
                 sprite="boutons"
@@ -36,7 +47,12 @@
                 height="160"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton02"
                 sprite="boutons"
@@ -46,7 +62,12 @@
                 height="80"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton03"
                 sprite="boutons"
@@ -56,7 +77,12 @@
                 height="100"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton04"
                 sprite="boutons"
@@ -66,7 +92,12 @@
                 height="80"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton05"
                 sprite="boutons"
@@ -76,7 +107,12 @@
                 height="120"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton06"
                 sprite="boutons"
@@ -86,7 +122,12 @@
                 height="80"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="bouton07"
                 sprite="boutons"
@@ -98,7 +139,12 @@
             </div>
           </div>
           <div v-if="currentTab === 'tab-sheets'" class="flex flex-col items-center w-full">
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="sheetsSimpleJump"
                 sprite="cric-test"
@@ -108,7 +154,12 @@
                 height="160"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="cubeBig"
                 sprite="cric-test"
@@ -118,7 +169,12 @@
                 height="250"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="cubeSmall"
                 sprite="cric-test"
@@ -128,7 +184,12 @@
                 height="130"
               />
             </div>
-            <div draggable="true" @dragstart="btnDragStart" class="inline-block mx-3">
+            <div
+              draggable="true"
+              @dragstart="btnDragStart"
+              @dragend="btnDragEnd"
+              class="inline-block mx-3"
+            >
               <draggableButton
                 title="wheel001"
                 sprite="cric-test"
@@ -147,7 +208,11 @@
       </div>
     </div>
     <!--@mousedown="handleStageMouseDown"-->
-    <div class="droptarget" @dragover.prevent @drop="dragDrop">
+    <div
+      class="droptarget"
+      @dragover.prevent
+      @drop="dragDrop"
+    >
       <v-stage ref="stage" :config="stageSize">
         <v-layer ref="layer">
           <v-group
@@ -318,6 +383,7 @@ export default {
         height: StageHeight
       },
       menuIsOpen: true,
+      menuIsPushed: false,
       tabs: [{
         title: 'Buttons',
         value: 'tab-buttons',
@@ -343,9 +409,13 @@ export default {
       dataTransfer.setData("offsetX", offsetX);
       dataTransfer.setData("offsetY", offsetY);
       dataTransfer.setData("title", target.firstElementChild.title);
+
+      this.menuIsPushed = true
     },
 
-    dragEnd: function() {},
+    btnDragEnd: function() {
+      this.menuIsPushed = false
+    },
 
     dragDrop: function({ dataTransfer, x = 0, y = 0 }) {
       let xpos = x - dataTransfer.getData("offsetX");
@@ -356,6 +426,7 @@ export default {
         y: ypos
       });
       document.activeElement.blur(); // remove focused element
+      this.menuIsPushed = false
     },
 
     save() {
@@ -497,6 +568,16 @@ body {
 
 .tabs__active-line {
   display: none;
+}
+
+.menu {
+  transition: transform 300ms ease-in-out;
+  position: relative;
+  left: 0;
+}
+
+.menu--is-pushed {
+  transform: translateX(-100%);
 }
 
 </style>
