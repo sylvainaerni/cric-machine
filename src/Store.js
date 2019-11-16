@@ -1,4 +1,5 @@
 import axios from "axios";
+import { cloneDeep } from "lodash";
 const spriteLibrary = {
   sheetsSimpleJump: {
     image: null,
@@ -158,7 +159,7 @@ export const store = {
   },
 
   addItem(param) {
-    console.log("ADD ITEM param");
+    console.log("adding item with params:", param);
     let newItem = {
       name: "group-" + itemId,
       itemId: itemId,
@@ -226,24 +227,22 @@ export const store = {
     this.removeAllItems();
     const data = localStorage.getItem("storage") || "[]";
     let fetchedArray = JSON.parse(data);
-    for (let i = 0; i < fetchedArray.length; i++) {
+    for (let i = 0; i <= fetchedArray.length; i++) {
       store.addItem(fetchedArray[i]);
     }
+    console.log("store after fetching data", cloneDeep(store));
   },
 
   async save(secretKey) {
+    console.log("the items we save:", cloneDeep(this.state.items));
+
     // prepare auth
     const token = secretKey; // access token
     // yeah i know this is bad... no need to tell me ;) this is a fun project
     localStorage.setItem("secretEnzymKey", token);
     // prepare save data and clean all vue stuff
-    let storedArray = JSON.parse(JSON.stringify(this.state.items));
-    for (let i = 0; i < this.state.items.length; i++) {
-      storedArray[i] = {};
-      storedArray[i].spriteName = this.state.items[i].spriteName;
-      storedArray[i].x = this.state.items[i].x;
-      storedArray[i].y = this.state.items[i].y;
-    }
+    let storedArray = cloneDeep(this.state.items);
+
     // get the jsonbin url/id
     const jsonBinUrl = localStorage.getItem("encymBinId") || null;
     // if we have it, save it, if not, create a new one and save
@@ -293,6 +292,8 @@ export const store = {
       `https://api.jsonbin.io/b/${localStorage.getItem("encymBinId")}`,
       axiosHeaders
     );
+    console.log("successfully retrieved jsbin data:", response.data);
+
     return response.data;
   },
   /**

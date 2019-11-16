@@ -51,8 +51,14 @@
         >
           Settings
         </button>
-        <div v-if="settingsActive">
+        <div class="mb-1" v-if="settingsActive">
           <label>secret key: <input v-model="secretKey" type="text"/></label>
+          <button
+            class="bg-transparent bg-green-600 ml-2 p-4 border-none"
+            @click="clearAppStorage"
+          >
+            <SvgIcon name="trash" />
+          </button>
         </div>
         <button v-if="secretKey" class=" mb-1 p-2 bg-green-600" @click="save">
           Save
@@ -154,6 +160,7 @@
 </template>
 
 <script>
+import SvgIcon from "../components/SvgIcon.vue";
 const StageWidth = window.innerWidth;
 const StageHeight = window.innerHeight;
 const image = new window.Image();
@@ -163,7 +170,8 @@ import DraggableButton from "@/components/DraggableButton.vue";
 
 export default {
   components: {
-    DraggableButton
+    DraggableButton,
+    SvgIcon
   },
 
   data() {
@@ -179,7 +187,7 @@ export default {
         image: image
       },
       sprites: ["cubeBig", "cubeSmall", "sheetsSimpleJump", "wheel001"],
-      items: store.state.items
+      items: null
     };
   },
 
@@ -211,6 +219,17 @@ export default {
       if (this.secretKey && this.binId) {
         let savedData = await store.readJsBin();
         this.items = savedData;
+        // i wonder if this could be done with bindings, handling it manually kinda sucks :(
+        // todo: find out why images dont wanna load
+        setTimeout(() => {
+          image.src = require(`@/assets/sprites/cric-test.png`);
+          image.onload = () => {
+            this.reloadAllImages();
+            this.animateAllSprites();
+            console.log("IMAGE IS LOADED");
+          };
+          this.$forceUpdate();
+        }, 100);
       }
     },
 
@@ -236,6 +255,12 @@ export default {
 
     handleMouseOut(e) {
       store.hideActionItems(e.target.parent.attrs.name);
+    },
+
+    clearAppStorage() {
+      this.secretKey = null;
+      this.binId = null;
+      localStorage.clear();
     },
 
     handleDragStart(e) {},
@@ -274,7 +299,6 @@ export default {
       }
     }
   },
-
   beforeMount() {
     // at the moment, we must `addItem` here all the shapes manually,
     // otherwise it doen't draw when a new item is added.
@@ -283,6 +307,7 @@ export default {
     this.sprites.forEach(sprite => {
       this.addItem({ spriteName: sprite, x: -10000, y: 0 });
     });
+    this.items = store.state.items;
     // this.addItem({spriteName: 'cubeBig',          x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'cubeSmall',        x: this.randomXPos(), y: this.randomYPos()});
     // this.addItem({spriteName: 'sheetsSimpleJump', x: this.randomXPos(), y: this.randomYPos()});
@@ -291,7 +316,8 @@ export default {
 
   async mounted() {
     this.secretKey = localStorage.getItem("secretEnzymKey") || null;
-    if (localStorage.getItem("secretEnzymKey")) {
+    if (this.secretKey && this.binId) {
+      // load the stuff
     }
     image.src = require(`@/assets/sprites/cric-test.png`);
     image.onload = () => {
