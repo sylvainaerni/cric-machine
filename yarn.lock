@@ -5032,9 +5032,9 @@ lodash.uniq@^4.5.0:
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
 lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^2.2.0:
   version "2.2.0"
@@ -8720,6 +8720,11 @@ vue-style-loader@^4.1.0:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-tabs-with-active-line@^1.2.5:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/vue-tabs-with-active-line/-/vue-tabs-with-active-line-1.2.6.tgz#f328205780a9189f0a55a0c5430c37215c2059e4"
+  integrity sha512-RDc8k/uWgF1c5FXyglIYi/0Juf+6gcgPeaChGZKrnzP7Hun9bKh8coFnZBNx7yeyE5gOb5RYbgS7ru4NTOg8+g==
 
 vue-template-compiler@^2.6.10:
   version "2.6.10"
