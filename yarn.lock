@@ -4079,9 +4079,9 @@ hoopy@^0.1.4:
   integrity sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==
 
 hosted-git-info@^2.1.4:
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.4.tgz#44119abaf4bc64692a16ace34700fed9c03e2546"
-  integrity sha512-pzXIvANXEFrc5oFFXRMkbLPQ2rXRoDERwDLyrcUxGhaZhgP54BBSl9Oheh7Vv0T090cszWBxPjkQQ5Sq1PbBRQ==
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
+  integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
 hpack.js@^2.1.6:
   version "2.1.6"
@@ -8720,6 +8720,11 @@ vue-style-loader@^4.1.0:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-tabs-with-active-line@^1.2.5:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/vue-tabs-with-active-line/-/vue-tabs-with-active-line-1.2.6.tgz#f328205780a9189f0a55a0c5430c37215c2059e4"
+  integrity sha512-RDc8k/uWgF1c5FXyglIYi/0Juf+6gcgPeaChGZKrnzP7Hun9bKh8coFnZBNx7yeyE5gOb5RYbgS7ru4NTOg8+g==
 
 vue-template-compiler@^2.6.10:
   version "2.6.10"
