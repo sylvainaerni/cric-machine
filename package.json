@@ -19,7 +19,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.10.0",
     "@vue/cli-plugin-eslint": "^3.10.0",
-    "@vue/cli-service": "^3.10.0",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^5.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
@@ -28,7 +28,7 @@
     "prettier": "^1.18.2",
     "svgo": "^1.1.0",
     "svgo-loader": "^2.1.0",
-    "vue-cli-plugin-svg-sprite": "^1.0.0",
+    "vue-cli-plugin-svg-sprite": "^1.1.0",
     "vue-cli-plugin-tailwind": "^1.1.0",
     "vue-template-compiler": "^2.6.10"
   }
